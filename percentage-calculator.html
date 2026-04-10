@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Percentage Calculator Online — Free & Instant | CalculatorHub</title>
+<meta name="description" content="Calculate percentages instantly. Find percentage of a number, percentage increase or decrease, and difference between two values. Free online tool."/>
+<meta name="keywords" content="percentage calculator, percent calculator, percentage increase decrease, discount calculator, percentage difference"/>
+<link rel="canonical" href="percentage-calculator.html"/>
+<link rel="icon" type="image/svg+xml" href="favicon.svg"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="css/styles.css"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "tertiary":"#c8a0f0","surface-container":"#141c2e","surface-bright":"#1a2438",
+          "on-surface-variant":"#a0b4c4","inverse-surface":"#e0e8f0","surface-tint":"#7dd3fc",
+          "outline-variant":"#2a3a48","secondary-container":"#1a3a4e","on-primary":"#001f2e",
+          "on-surface":"#e0e8f0","surface":"#0f1524","primary":"#7dd3fc",
+          "surface-container-highest":"#202c42","surface-container-high":"#1a2438",
+          "error":"#ff6b6b","background":"#0a0e1a","outline":"#4a6070",
+          "on-background":"#e0e8f0","on-secondary-container":"#c0d8e8","surface-dim":"#0f1524",
+          "secondary":"#88b4cc","error-container":"#3d1414","on-primary-container":"#c8eaff",
+          "surface-container-lowest":"#0a0e1a","primary-container":"#0e4d6e",
+          "surface-container-low":"#111828","tertiary-container":"#3d2060",
+          "on-tertiary-container":"#e8d0ff"
+        },
+        borderRadius: { DEFAULT:"0.5rem", lg:"1rem", xl:"1.5rem", full:"9999px" },
+        fontFamily: { headline:["Inter"], body:["Inter"], label:["Inter"] }
+      }
+    }
+  }
+</script>
+</head>
+<body class="bg-background font-body text-on-surface min-h-screen flex flex-col">
+
+<!-- ── Navbar ── -->
+<nav class="fixed top-0 w-full z-50 bg-slate-950/60 backdrop-blur-xl border-b border-sky-400/10" style="position:relative">
+  <div class="max-w-7xl mx-auto px-6 py-4 flex justify-center items-center gap-8 relative">
+    <a href="index.html" class="text-2xl font-semibold tracking-tight text-sky-300">CalculatorHub</a>
+    <div class="hidden md:flex items-center space-x-5 text-sm">
+      <a href="index.html"                 class="nav-link">Home</a>
+      <a href="gst-calculator.html"        class="nav-link">GST</a>
+      <a href="emi-calculator.html"        class="nav-link">EMI</a>
+      <a href="loan-calculator.html" class="nav-link">Loan</a>
+      <a href="salary-calculator.html" class="nav-link">Salary</a>
+      <a href="bmi-calculator.html" class="nav-link">BMI</a>
+      <a href="percentage-calculator.html" class="nav-link active">Percentage</a>
+      <a href="age-calculator.html"        class="nav-link">Age</a>
+    </div>
+    <button id="mobile_menu_btn" class="md:hidden text-sky-300 absolute right-6 top-1/2 -translate-y-1/2">
+      <span class="material-symbols-outlined">menu</span>
+    </button>
+  </div>
+  <div id="mobile_menu" class="mobile-menu md:hidden">
+    <a href="index.html"                 class="nav-link">Home</a>
+    <a href="gst-calculator.html"        class="nav-link">GST</a>
+    <a href="emi-calculator.html"        class="nav-link">EMI</a>
+      <a href="loan-calculator.html" class="nav-link">Loan</a>
+      <a href="salary-calculator.html" class="nav-link">Salary</a>
+      <a href="bmi-calculator.html" class="nav-link">BMI</a>
+    <a href="percentage-calculator.html" class="nav-link active">Percentage</a>
+    <a href="age-calculator.html"        class="nav-link">Age</a>
+  </div>
+</nav>
+
+<!-- ── Main ── -->
+<main class="flex-grow pt-24 pb-12 px-6">
+  <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8">
+
+    <!-- Left -->
+    <div class="lg:col-span-8 space-y-8">
+
+      <header class="fade-up">
+        <h1 class="text-4xl md:text-5xl font-extrabold text-on-surface tracking-tight mb-4">
+          Percentage <span class="text-primary">Calculator</span>
+        </h1>
+        <p class="text-on-surface-variant text-lg max-w-2xl">
+          Fast, precise, and visually stunning. Calculate discounts, markups, or simple variations with ethereal clarity.
+        </p>
+      </header>
+
+      <div class="ad-placeholder h-24 w-full fade-up fade-up-1" role="complementary" aria-label="Ad placeholder below percentage hero">
+        <span class="ad-label">Advertisement</span>
+      </div>
+
+      <!-- Mode Tabs -->
+      <div class="flex gap-3 flex-wrap fade-up fade-up-1">
+        <button id="tab_of"       onclick="setMode('of')"       class="mode-tab active-tab px-4 py-2 rounded-lg text-sm font-semibold border transition-all">% of Number</button>
+        <button id="tab_increase" onclick="setMode('increase')" class="mode-tab px-4 py-2 rounded-lg text-sm font-semibold border transition-all">% Increase</button>
+        <button id="tab_decrease" onclick="setMode('decrease')" class="mode-tab px-4 py-2 rounded-lg text-sm font-semibold border transition-all">% Decrease</button>
+        <button id="tab_diff"     onclick="setMode('diff')"     class="mode-tab px-4 py-2 rounded-lg text-sm font-semibold border transition-all">% Difference</button>
+      </div>
+
+      <!-- Calculator Card -->
+      <div class="glass-card-elevated rounded-xl p-8 fade-up fade-up-1">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+          <!-- Inputs -->
+          <div class="space-y-6">
+            <div class="space-y-2">
+              <label id="label_base" class="text-sm font-medium text-sky-300/80 ml-1">Base Value</label>
+              <div class="relative">
+                <input id="pct_base" type="number" placeholder="0.00"
+                  class="calc-input w-full bg-surface-container border border-outline-variant focus:border-primary rounded-lg px-4 py-4 text-xl outline-none transition-all placeholder:text-on-surface-variant/30"/>
+                <span class="absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant/50">
+                  <span class="material-symbols-outlined">payments</span>
+                </span>
+              </div>
+            </div>
+
+            <div class="space-y-2">
+              <label id="label_pct" class="text-sm font-medium text-sky-300/80 ml-1">Percentage</label>
+              <div class="relative">
+                <input id="pct_pct" type="number" placeholder="0"
+                  class="calc-input w-full bg-surface-container border border-outline-variant focus:border-primary rounded-lg px-4 py-4 text-xl outline-none transition-all placeholder:text-on-surface-variant/30"/>
+                <span class="absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant/50">
+                  <span class="material-symbols-outlined">percent</span>
+                </span>
+              </div>
+            </div>
+
+            <button id="pct_btn" class="btn-calc">
+              <span class="material-symbols-outlined">calculate</span>
+              Calculate Result
+            </button>
+          </div>
+
+          <!-- Results -->
+          <div class="flex flex-col justify-center items-center md:border-l border-sky-400/10 md:pl-8 py-6">
+            <div class="text-center space-y-3 w-full">
+              <span class="text-xs text-on-surface-variant uppercase tracking-widest font-bold">Total Result</span>
+              <div id="pct_result" class="result-number result-glow">0.00</div>
+              <span id="pct_badge" class="result-badge positive">
+                <span class="material-symbols-outlined" style="font-size:14px">trending_up</span>
+                <span>+0.00 Difference</span>
+              </span>
+              <!-- Total line (shown in increase/decrease mode) -->
+              <div id="pct_total_row" class="glass-card p-3 rounded-lg mt-3 hidden">
+                <span class="text-xs text-on-surface-variant/70 block mb-1">Final Total</span>
+                <span id="pct_total" class="font-bold text-primary text-xl">0.00</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ad Placeholder -->
+      <div class="ad-placeholder h-28 w-full fade-up fade-up-2" role="complementary" aria-label="Ad placeholder after percentage results">
+        <span class="ad-label">Advertisement</span>
+      </div>
+
+      <!-- Features -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 fade-up fade-up-3">
+        <div class="glass-card feature-card p-6 rounded-lg hover:border-primary/30">
+          <span class="material-symbols-outlined text-primary mb-4 text-3xl">bolt</span>
+          <h3 class="font-bold mb-2">Real-time</h3>
+          <p class="text-on-surface-variant text-sm">Calculations update as you type for instant feedback.</p>
+        </div>
+        <div class="glass-card feature-card p-6 rounded-lg hover:border-tertiary/30">
+          <span class="material-symbols-outlined text-tertiary mb-4 text-3xl">security</span>
+          <h3 class="font-bold mb-2">Privacy First</h3>
+          <p class="text-on-surface-variant text-sm">All processing happens locally. No data ever leaves your device.</p>
+        </div>
+        <div class="glass-card feature-card p-6 rounded-lg hover:border-primary/30">
+          <span class="material-symbols-outlined text-primary mb-4 text-3xl">layers</span>
+          <h3 class="font-bold mb-2">Multi-mode</h3>
+          <p class="text-on-surface-variant text-sm">Switch between percentage of, increase, decrease, or difference.</p>
+        </div>
+      </div>
+
+      <div class="ad-placeholder h-24 w-full fade-up fade-up-4" role="complementary" aria-label="Ad placeholder between percentage content sections">
+        <span class="ad-label">Advertisement</span>
+      </div>
+
+      <section class="glass-card rounded-xl p-6 fade-up fade-up-4">
+        <h2 class="text-xl font-bold mb-3 text-on-surface">Percentage Calculator Guide</h2>
+        <div class="text-on-surface-variant text-sm space-y-3 leading-relaxed">
+          <h3 class="text-base font-semibold text-on-surface">What this calculator does</h3>
+          <p>This tool supports four common percentage workflows: percentage of a value, increase by percentage, decrease by percentage, and percentage difference between two values. It is useful for discounts, markups, exam score analysis, budgeting, and comparing changes across two numbers without manually applying formulas each time.</p>
+          <h3 class="text-base font-semibold text-on-surface">How to use it</h3>
+          <p>Pick a mode from the top tabs, then fill both inputs. The label text changes based on selected mode so you always know what each field means. Results refresh instantly while typing, and the badge summarizes whether the outcome is positive or negative change. Use the total row in increase/decrease modes to see the final adjusted amount.</p>
+          <h3 class="text-base font-semibold text-on-surface">Example usage</h3>
+          <p>If the original price is ₹2,000 and discount is 15%, choose decrease mode to see discount value and final payable amount quickly. For growth tracking, if sales move from 800 to 1,000, choose difference mode to estimate percentage change and understand trend direction before reporting or planning next targets.</p>
+        </div>
+      </section>
+    </div>
+
+    <!-- Sidebar -->
+    <aside class="lg:col-span-4 space-y-6">
+      <div class="glass-card p-6 rounded-xl space-y-4">
+        <h2 class="text-lg font-bold flex items-center gap-2">
+          <span class="material-symbols-outlined text-tertiary">history</span>
+          Recent Activity
+        </h2>
+        <div id="history_list" class="space-y-3"></div>
+      </div>
+
+      <div class="ad-placeholder h-48 w-full rounded-xl">
+        <span class="ad-label">Advertisement</span>
+      </div>
+
+      <!-- Quick Reference -->
+      <div class="glass-card-elevated p-6 rounded-xl">
+        <h2 class="text-base font-bold mb-3 flex items-center gap-2">
+          <span class="material-symbols-outlined text-primary">menu_book</span>
+          Quick Reference
+        </h2>
+        <div class="space-y-2 text-sm text-on-surface-variant">
+          <div class="p-2 rounded-lg bg-surface-container-low border border-outline-variant/50">
+            <span class="text-on-surface font-medium">X% of Y</span> = (X × Y) ÷ 100
+          </div>
+          <div class="p-2 rounded-lg bg-surface-container-low border border-outline-variant/50">
+            <span class="text-on-surface font-medium">% Increase</span> = Y + (X × Y ÷ 100)
+          </div>
+          <div class="p-2 rounded-lg bg-surface-container-low border border-outline-variant/50">
+            <span class="text-on-surface font-medium">% Decrease</span> = Y − (X × Y ÷ 100)
+          </div>
+          <div class="p-2 rounded-lg bg-surface-container-low border border-outline-variant/50">
+            <span class="text-on-surface font-medium">% Diff</span> = ((B−A) ÷ A) × 100
+          </div>
+        </div>
+      </div>
+
+      <div class="glass-card p-5 rounded-xl space-y-3">
+        <h2 class="text-sm font-bold text-on-surface-variant uppercase tracking-widest">Other Calculators</h2>
+        <a href="gst-calculator.html" class="flex items-center gap-3 p-3 rounded-lg bg-surface-container-low border border-outline-variant/50 hover:border-primary/30 transition-colors">
+          <span class="material-symbols-outlined text-primary">receipt_long</span>
+          <span class="text-sm font-medium">GST Calculator</span>
+        </a>
+        <a href="emi-calculator.html" class="flex items-center gap-3 p-3 rounded-lg bg-surface-container-low border border-outline-variant/50 hover:border-primary/30 transition-colors">
+          <span class="material-symbols-outlined text-tertiary">account_balance</span>
+          <span class="text-sm font-medium">EMI Calculator</span>
+        </a>
+        <a href="age-calculator.html" class="flex items-center gap-3 p-3 rounded-lg bg-surface-container-low border border-outline-variant/50 hover:border-primary/30 transition-colors">
+          <span class="material-symbols-outlined text-primary">cake</span>
+          <span class="text-sm font-medium">Age Calculator</span>
+        </a>
+      </div>
+    </aside>
+
+  </div>
+</main>
+
+<!-- ── Footer ── -->
+<footer class="w-full py-12 mt-auto bg-slate-950 border-t border-sky-400/10">
+  <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4 text-sm">
+    <div class="text-lg font-bold text-sky-300">CalculatorHub</div>
+    <div class="flex gap-8 text-slate-500">
+      <a href="privacy-policy.html" class="hover:text-sky-300 transition-colors">Privacy Policy</a>
+      <a href="terms.html" class="hover:text-sky-300 transition-colors">Terms & Conditions</a>
+      <a href="contact.html" class="hover:text-sky-300 transition-colors">Contact</a>
+    </div>
+    <div class="text-slate-500 text-xs text-center md:text-right">
+      © 2026 CalculatorHub. All rights reserved.
+    </div>
+  </div>
+</footer>
+
+<script src="js/script.js"></script>
+<script>
+  /* ── Mode tabs for Percentage Calculator ── */
+  let currentMode = 'of';
+
+  const tabStyles = {
+    active: 'bg-primary/10 border-primary/40 text-primary',
+    inactive: 'bg-surface-container border-outline-variant text-on-surface-variant hover:border-primary/30 hover:text-on-surface'
+  };
+
+  function setMode(mode) {
+    currentMode = mode;
+    document.querySelectorAll('.mode-tab').forEach(t => {
+      t.className = 'mode-tab px-4 py-2 rounded-lg text-sm font-semibold border transition-all ' + tabStyles.inactive;
+    });
+    const activeTab = document.getElementById('tab_' + mode);
+    if (activeTab) activeTab.className = 'mode-tab px-4 py-2 rounded-lg text-sm font-semibold border transition-all ' + tabStyles.active;
+
+    const labelBase = document.getElementById('label_base');
+    const labelPct  = document.getElementById('label_pct');
+    const totalRow  = document.getElementById('pct_total_row');
+
+    const labels = {
+      of:       ['Base Value',  'Percentage (%)'],
+      increase: ['Base Value',  'Increase By (%)'],
+      decrease: ['Base Value',  'Decrease By (%)'],
+      diff:     ['Value A',     'Value B']
+    };
+    if (labelBase) labelBase.textContent = labels[mode][0];
+    if (labelPct)  labelPct.textContent  = labels[mode][1];
+    if (totalRow)  totalRow.classList.toggle('hidden', mode === 'of' || mode === 'diff');
+
+    runModeCalc();
+  }
+
+  function runModeCalc() {
+    const a = parseFloat(document.getElementById('pct_base')?.value) || 0;
+    const b = parseFloat(document.getElementById('pct_pct')?.value)  || 0;
+
+    let result = 0, badge = '', badgeType = 'neutral', total = 0;
+
+    if (currentMode === 'of') {
+      result = (a * b) / 100;
+      total  = a + result;
+      badge  = `${fmt(result)} is ${b}% of ${fmt(a)}`;
+      badgeType = 'positive';
+    } else if (currentMode === 'increase') {
+      result = (a * b) / 100;
+      total  = a + result;
+      badge  = `+${fmt(result)} increase`;
+      badgeType = 'positive';
+      document.getElementById('pct_total').textContent = fmt(total);
+    } else if (currentMode === 'decrease') {
+      result = (a * b) / 100;
+      total  = a - result;
+      badge  = `−${fmt(result)} decrease`;
+      badgeType = 'negative';
+      document.getElementById('pct_total').textContent = fmt(total);
+    } else if (currentMode === 'diff') {
+      if (a !== 0) {
+        result = ((b - a) / Math.abs(a)) * 100;
+        badge  = result >= 0 ? `+${fmt(result)}% change` : `${fmt(result)}% change`;
+        badgeType = result >= 0 ? 'positive' : 'negative';
+      }
+    }
+
+    document.getElementById('pct_result').textContent = fmt(Math.abs(result));
+    setBadge('pct_badge', badge, badgeType);
+
+    if (a && b) {
+      History.add(`${b}% ${currentMode} of ${fmt(a,0)}`, fmt(Math.abs(result)));
+      History.render('history_list');
+    }
+  }
+
+  // Override the default PercentageCalc with mode-aware version
+  document.addEventListener('DOMContentLoaded', () => {
+    setMode('of');
+    document.getElementById('pct_base')?.addEventListener('input', runModeCalc);
+    document.getElementById('pct_pct')?.addEventListener('input',  runModeCalc);
+    document.getElementById('pct_btn')?.addEventListener('click',  runModeCalc);
+  });
+</script>
+</body>
+</html>

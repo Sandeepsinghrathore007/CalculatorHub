@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>EMI Calculator for Home & Car Loans — Accurate Results | CalculatorHub</title>
+<meta name="description" content="Calculate your monthly EMI for home loan, car loan, or personal loan. Get accurate EMI, total interest, and payment breakdown instantly. Free tool."/>
+<meta name="keywords" content="EMI calculator, loan EMI calculator, home loan EMI, car loan calculator, personal loan EMI, monthly installment"/>
+<link rel="canonical" href="emi-calculator.html"/>
+<link rel="icon" type="image/svg+xml" href="favicon.svg"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="css/styles.css"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "tertiary":"#c8a0f0","surface-container":"#141c2e","surface-bright":"#1a2438",
+          "on-surface-variant":"#a0b4c4","inverse-surface":"#e0e8f0","surface-tint":"#7dd3fc",
+          "outline-variant":"#2a3a48","secondary-container":"#1a3a4e","on-primary":"#001f2e",
+          "on-surface":"#e0e8f0","surface":"#0f1524","primary":"#7dd3fc",
+          "surface-container-highest":"#202c42","surface-container-high":"#1a2438",
+          "error":"#ff6b6b","background":"#0a0e1a","outline":"#4a6070",
+          "on-background":"#e0e8f0","on-secondary-container":"#c0d8e8","surface-dim":"#0f1524",
+          "secondary":"#88b4cc","error-container":"#3d1414","on-primary-container":"#c8eaff",
+          "surface-container-lowest":"#0a0e1a","primary-container":"#0e4d6e",
+          "surface-container-low":"#111828","tertiary-container":"#3d2060",
+          "on-tertiary-container":"#e8d0ff"
+        },
+        borderRadius: { DEFAULT:"0.5rem", lg:"1rem", xl:"1.5rem", full:"9999px" },
+        fontFamily: { headline:["Inter"], body:["Inter"], label:["Inter"] }
+      }
+    }
+  }
+</script>
+<style>
+  /* EMI Breakdown Bar */
+  .emi-bar-track {
+    height: 8px;
+    border-radius: 9999px;
+    background: rgba(42, 58, 72, 0.8);
+    overflow: hidden;
+  }
+  .emi-bar-fill-principal {
+    height: 100%;
+    background: #7dd3fc;
+    border-radius: 9999px;
+    transition: width 0.6s ease;
+  }
+  .emi-bar-fill-interest {
+    height: 100%;
+    background: #c8a0f0;
+    border-radius: 9999px;
+    transition: width 0.6s ease;
+  }
+</style>
+</head>
+<body class="bg-background font-body text-on-surface min-h-screen flex flex-col">
+
+<!-- ── Navbar ── -->
+<nav class="fixed top-0 w-full z-50 bg-slate-950/60 backdrop-blur-xl border-b border-sky-400/10" style="position:relative">
+  <div class="max-w-7xl mx-auto px-6 py-4 flex justify-center items-center gap-8 relative">
+    <a href="index.html" class="text-2xl font-semibold tracking-tight text-sky-300">CalculatorHub</a>
+    <div class="hidden md:flex items-center space-x-5 text-sm">
+      <a href="index.html"                 class="nav-link">Home</a>
+      <a href="gst-calculator.html"        class="nav-link">GST</a>
+      <a href="emi-calculator.html"        class="nav-link active">EMI</a>
+      <a href="loan-calculator.html" class="nav-link">Loan</a>
+      <a href="salary-calculator.html" class="nav-link">Salary</a>
+      <a href="bmi-calculator.html" class="nav-link">BMI</a>
+      <a href="percentage-calculator.html" class="nav-link">Percentage</a>
+      <a href="age-calculator.html"        class="nav-link">Age</a>
+    </div>
+    <button id="mobile_menu_btn" class="md:hidden text-sky-300 absolute right-6 top-1/2 -translate-y-1/2">
+      <span class="material-symbols-outlined">menu</span>
+    </button>
+  </div>
+  <div id="mobile_menu" class="mobile-menu md:hidden">
+    <a href="index.html"                 class="nav-link">Home</a>
+    <a href="gst-calculator.html"        class="nav-link">GST</a>
+    <a href="emi-calculator.html"        class="nav-link active">EMI</a>
+      <a href="loan-calculator.html" class="nav-link">Loan</a>
+      <a href="salary-calculator.html" class="nav-link">Salary</a>
+      <a href="bmi-calculator.html" class="nav-link">BMI</a>
+    <a href="percentage-calculator.html" class="nav-link">Percentage</a>
+    <a href="age-calculator.html"        class="nav-link">Age</a>
+  </div>
+</nav>
+
+<!-- ── Main ── -->
+<main class="flex-grow pt-24 pb-12 px-6">
+  <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8">
+
+    <!-- Left: Hero + Calculator -->
+    <div class="lg:col-span-8 space-y-8">
+
+      <header class="fade-up">
+        <h1 class="text-4xl md:text-5xl font-extrabold text-on-surface tracking-tight mb-4">
+          EMI <span class="text-primary">Calculator</span>
+        </h1>
+        <p class="text-on-surface-variant text-lg max-w-2xl">
+          Plan your home, car, or personal loan. See exact monthly EMI, total interest, and complete payment breakdown.
+        </p>
+      </header>
+
+      <div class="ad-placeholder h-24 w-full fade-up fade-up-1" role="complementary" aria-label="Ad placeholder below EMI hero">
+        <span class="ad-label">Advertisement</span>
+      </div>
+
+      <!-- Calculator Card -->
+      <div class="glass-card-elevated rounded-xl p-8 fade-up fade-up-1">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+          <!-- Inputs -->
+          <div class="space-y-5">
+            <div class="space-y-2">
+              <label class="text-sm font-medium text-sky-300/80 ml-1">Loan Amount (₹)</label>
+              <div class="relative">
+                <input id="emi_principal" type="number" placeholder="500000"
+                  class="calc-input w-full bg-surface-container border border-outline-variant focus:border-primary rounded-lg px-4 py-4 text-xl outline-none transition-all placeholder:text-on-surface-variant/30"/>
+                <span class="absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant/50">
+                  <span class="material-symbols-outlined">currency_rupee</span>
+                </span>
+              </div>
+            </div>
+
+            <div class="space-y-2">
+              <label class="text-sm font-medium text-sky-300/80 ml-1">Annual Interest Rate (%)</label>
+              <div class="relative">
+                <input id="emi_rate" type="number" placeholder="8.5" step="0.1"
+                  class="calc-input w-full bg-surface-container border border-outline-variant focus:border-primary rounded-lg px-4 py-4 text-xl outline-none transition-all placeholder:text-on-surface-variant/30"/>
+                <span class="absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant/50">
+                  <span class="material-symbols-outlined">percent</span>
+                </span>
+              </div>
+            </div>
+
+            <div class="space-y-2">
+              <label class="text-sm font-medium text-sky-300/80 ml-1">Loan Tenure (months)</label>
+              <div class="relative">
+                <input id="emi_tenure" type="number" placeholder="60"
+                  class="calc-input w-full bg-surface-container border border-outline-variant focus:border-primary rounded-lg px-4 py-4 text-xl outline-none transition-all placeholder:text-on-surface-variant/30"/>
+                <span class="absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant/50">
+                  <span class="material-symbols-outlined">calendar_month</span>
+                </span>
+              </div>
+              <!-- Quick tenure buttons -->
+              <div class="flex gap-2 flex-wrap pt-1">
+                <button onclick="document.getElementById('emi_tenure').value=12;EMICalc.calculate()"  class="px-3 py-1 rounded-full text-xs font-semibold bg-surface-container border border-outline-variant hover:border-primary/50 hover:text-primary transition-all">1 yr</button>
+                <button onclick="document.getElementById('emi_tenure').value=36;EMICalc.calculate()"  class="px-3 py-1 rounded-full text-xs font-semibold bg-surface-container border border-outline-variant hover:border-primary/50 hover:text-primary transition-all">3 yr</button>
+                <button onclick="document.getElementById('emi_tenure').value=60;EMICalc.calculate()"  class="px-3 py-1 rounded-full text-xs font-semibold bg-surface-container border border-outline-variant hover:border-primary/50 hover:text-primary transition-all">5 yr</button>
+                <button onclick="document.getElementById('emi_tenure').value=120;EMICalc.calculate()" class="px-3 py-1 rounded-full text-xs font-semibold bg-surface-container border border-outline-variant hover:border-primary/50 hover:text-primary transition-all">10 yr</button>
+                <button onclick="document.getElementById('emi_tenure').value=240;EMICalc.calculate()" class="px-3 py-1 rounded-full text-xs font-semibold bg-surface-container border border-outline-variant hover:border-primary/50 hover:text-primary transition-all">20 yr</button>
+              </div>
+            </div>
+
+            <button id="emi_btn" class="btn-calc">
+              <span class="material-symbols-outlined">calculate</span>
+              Calculate EMI
+            </button>
+          </div>
+
+          <!-- Results -->
+          <div class="flex flex-col justify-center md:border-l border-sky-400/10 md:pl-8 py-4 space-y-5">
+            <div class="text-center space-y-1">
+              <span class="text-xs text-on-surface-variant uppercase tracking-widest font-bold">Monthly EMI</span>
+              <div id="emi_result" class="result-number result-glow">0.00</div>
+              <span id="emi_badge" class="result-badge neutral">
+                <span class="material-symbols-outlined" style="font-size:14px">info</span>
+                <span>Enter loan details</span>
+              </span>
+            </div>
+
+            <div class="space-y-3">
+              <div class="glass-card p-3 rounded-lg flex justify-between items-center">
+                <span class="text-sm text-on-surface-variant">Total Interest</span>
+                <span id="emi_interest" class="font-bold text-tertiary">0.00</span>
+              </div>
+              <div class="glass-card p-3 rounded-lg flex justify-between items-center">
+                <span class="text-sm text-on-surface-variant">Total Payment</span>
+                <span id="emi_total" class="font-bold text-primary">0.00</span>
+              </div>
+            </div>
+
+            <!-- Visual Breakdown Bar -->
+            <div id="emi_breakdown_wrap" class="space-y-2" style="display:none">
+              <div class="flex justify-between text-xs text-on-surface-variant/70">
+                <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-sky-300 inline-block"></span> Principal</span>
+                <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-tertiary inline-block"></span> Interest</span>
+              </div>
+              <div class="emi-bar-track">
+                <div id="emi_bar_p" class="emi-bar-fill-principal" style="width:50%"></div>
+              </div>
+              <div class="emi-bar-track">
+                <div id="emi_bar_i" class="emi-bar-fill-interest" style="width:50%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ad Placeholder -->
+      <div class="ad-placeholder h-28 w-full fade-up fade-up-2" role="complementary" aria-label="Ad placeholder after EMI results">
+        <span class="ad-label">Advertisement</span>
+      </div>
+
+      <!-- Features -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 fade-up fade-up-3">
+        <div class="glass-card feature-card p-6 rounded-lg hover:border-primary/30">
+          <span class="material-symbols-outlined text-primary mb-4 text-3xl">timeline</span>
+          <h3 class="font-bold mb-2">Visual Breakdown</h3>
+          <p class="text-on-surface-variant text-sm">See principal vs interest split clearly with progress bars.</p>
+        </div>
+        <div class="glass-card feature-card p-6 rounded-lg hover:border-tertiary/30">
+          <span class="material-symbols-outlined text-tertiary mb-4 text-3xl">event</span>
+          <h3 class="font-bold mb-2">Quick Tenure</h3>
+          <p class="text-on-surface-variant text-sm">Tap preset tenures for 1, 3, 5, 10, or 20 year loans.</p>
+        </div>
+        <div class="glass-card feature-card p-6 rounded-lg hover:border-primary/30">
+          <span class="material-symbols-outlined text-primary mb-4 text-3xl">savings</span>
+          <h3 class="font-bold mb-2">Total Cost View</h3>
+          <p class="text-on-surface-variant text-sm">Know exactly how much interest you'll pay over the entire loan.</p>
+        </div>
+      </div>
+
+      <div class="ad-placeholder h-24 w-full fade-up fade-up-4" role="complementary" aria-label="Ad placeholder between EMI sections">
+        <span class="ad-label">Advertisement</span>
+      </div>
+
+      <section class="glass-card rounded-xl p-6 fade-up fade-up-4">
+        <h2 class="text-xl font-bold mb-3 text-on-surface">EMI Calculator Guide</h2>
+        <div class="text-on-surface-variant text-sm space-y-3 leading-relaxed">
+          <h3 class="text-base font-semibold text-on-surface">What this calculator does</h3>
+          <p>The EMI calculator estimates your fixed monthly installment for a loan based on principal amount, annual interest rate, and tenure in months. It also calculates total interest outgo and full repayment amount, which helps compare borrowing options before you finalize a home, car, or personal loan decision.</p>
+          <h3 class="text-base font-semibold text-on-surface">How to use it</h3>
+          <p>Enter loan amount, annual rate, and tenure. Use quick-tenure chips for faster comparison across common durations. Results update instantly and include a visual principal-versus-interest split so you can understand how borrowing cost changes with interest rate and tenure. If you enter 0% rate, the tool still provides straight-line repayment values.</p>
+          <h3 class="text-base font-semibold text-on-surface">Example usage</h3>
+          <p>Suppose you borrow ₹5,00,000 at 8.5% annual interest for 60 months. The calculator will show monthly EMI, total interest paid over five years, and total repayment. You can then change tenure to 36 or 120 months and compare whether lower EMI is worth the additional total interest burden.</p>
+        </div>
+      </section>
+    </div>
+
+    <!-- Sidebar -->
+    <aside class="lg:col-span-4 space-y-6">
+      <div class="glass-card p-6 rounded-xl space-y-4">
+        <h2 class="text-lg font-bold flex items-center gap-2">
+          <span class="material-symbols-outlined text-tertiary">history</span>
+          Recent Activity
+        </h2>
+        <div id="history_list" class="space-y-3"></div>
+      </div>
+
+      <div class="ad-placeholder h-48 w-full rounded-xl">
+        <span class="ad-label">Advertisement</span>
+      </div>
+
+      <!-- Tips Card -->
+      <div class="glass-card-elevated p-6 rounded-xl space-y-3">
+        <h2 class="text-base font-bold flex items-center gap-2">
+          <span class="material-symbols-outlined text-primary">lightbulb</span>
+          Loan Tips
+        </h2>
+        <ul class="space-y-2 text-sm text-on-surface-variant">
+          <li class="flex items-start gap-2"><span class="text-primary mt-0.5">→</span> Shorter tenure = lower total interest but higher EMI.</li>
+          <li class="flex items-start gap-2"><span class="text-primary mt-0.5">→</span> A 1% lower rate on ₹50L can save ₹3–5L over 20 years.</li>
+          <li class="flex items-start gap-2"><span class="text-primary mt-0.5">→</span> Pre-payment reduces outstanding principal & future interest.</li>
+          <li class="flex items-start gap-2"><span class="text-primary mt-0.5">→</span> EMI should not exceed 40–50% of monthly take-home pay.</li>
+        </ul>
+      </div>
+
+      <div class="glass-card p-5 rounded-xl space-y-3">
+        <h2 class="text-sm font-bold text-on-surface-variant uppercase tracking-widest">Other Calculators</h2>
+        <a href="gst-calculator.html"        class="flex items-center gap-3 p-3 rounded-lg bg-surface-container-low border border-outline-variant/50 hover:border-primary/30 transition-colors">
+          <span class="material-symbols-outlined text-primary">receipt_long</span>
+          <span class="text-sm font-medium">GST Calculator</span>
+        </a>
+        <a href="percentage-calculator.html" class="flex items-center gap-3 p-3 rounded-lg bg-surface-container-low border border-outline-variant/50 hover:border-primary/30 transition-colors">
+          <span class="material-symbols-outlined text-tertiary">percent</span>
+          <span class="text-sm font-medium">Percentage Calculator</span>
+        </a>
+        <a href="age-calculator.html"        class="flex items-center gap-3 p-3 rounded-lg bg-surface-container-low border border-outline-variant/50 hover:border-primary/30 transition-colors">
+          <span class="material-symbols-outlined text-primary">cake</span>
+          <span class="text-sm font-medium">Age Calculator</span>
+        </a>
+      </div>
+    </aside>
+
+  </div>
+</main>
+
+<!-- ── Footer ── -->
+<footer class="w-full py-12 mt-auto bg-slate-950 border-t border-sky-400/10">
+  <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4 text-sm">
+    <div class="text-lg font-bold text-sky-300">CalculatorHub</div>
+    <div class="flex gap-8 text-slate-500">
+      <a href="privacy-policy.html" class="hover:text-sky-300 transition-colors">Privacy Policy</a>
+      <a href="terms.html" class="hover:text-sky-300 transition-colors">Terms & Conditions</a>
+      <a href="contact.html" class="hover:text-sky-300 transition-colors">Contact</a>
+    </div>
+    <div class="text-slate-500 text-xs text-center md:text-right">
+      © 2026 CalculatorHub. All rights reserved.
+    </div>
+  </div>
+</footer>
+
+<script src="js/script.js"></script>
+<script>
+  // EMI breakdown bar update
+  const _origEMICalc = EMICalc.calculate.bind(EMICalc);
+  EMICalc.calculate = function() {
+    _origEMICalc();
+    const P = parseFloat(document.getElementById('emi_principal')?.value) || 0;
+    const r = (parseFloat(document.getElementById('emi_rate')?.value) || 0) / 12 / 100;
+    const n = parseInt(document.getElementById('emi_tenure')?.value) || 0;
+    const wrap = document.getElementById('emi_breakdown_wrap');
+
+    if (!P || !n) {
+      if (wrap) wrap.style.display = 'none';
+      return;
+    }
+
+    let totalPay;
+
+    if (r === 0) {
+      totalPay = P;
+    } else {
+      const emi = P * r * Math.pow(1 + r, n) / (Math.pow(1 + r, n) - 1);
+      totalPay = emi * n;
+    }
+
+    const pPct = Math.round((P / totalPay) * 100);
+    const iPct = 100 - pPct;
+    if (wrap) wrap.style.display = 'block';
+    document.getElementById('emi_bar_p').style.width = pPct + '%';
+    document.getElementById('emi_bar_i').style.width = iPct + '%';
+  };
+</script>
+</body>
+</html>

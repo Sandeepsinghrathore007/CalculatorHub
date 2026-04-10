@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Loan Calculator — Monthly Payment & Interest | CalculatorHub</title>
+<meta name="description" content="Calculate your monthly loan payment, total interest, and total repayment instantly. Free online Loan Calculator by CalculatorHub."/>
+<meta name="keywords" content="loan calculator, monthly payment calculator, interest calculator, total repayment"/>
+<link rel="canonical" href="loan-calculator.html"/>
+<link rel="icon" type="image/svg+xml" href="favicon.svg"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="css/styles.css"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "tertiary":"#c8a0f0","surface-container":"#141c2e","surface-bright":"#1a2438",
+          "on-surface-variant":"#a0b4c4","inverse-surface":"#e0e8f0","surface-tint":"#7dd3fc",
+          "outline-variant":"#2a3a48","secondary-container":"#1a3a4e","on-primary":"#001f2e",
+          "on-surface":"#e0e8f0","surface":"#0f1524","primary":"#7dd3fc",
+          "surface-container-highest":"#202c42","surface-container-high":"#1a2438",
+          "error":"#ff6b6b","background":"#0a0e1a","outline":"#4a6070",
+          "on-background":"#e0e8f0","on-secondary-container":"#c0d8e8","surface-dim":"#0f1524",
+          "secondary":"#88b4cc","error-container":"#3d1414","on-primary-container":"#c8eaff",
+          "surface-container-lowest":"#0a0e1a","primary-container":"#0e4d6e",
+          "surface-container-low":"#111828","tertiary-container":"#3d2060",
+          "on-tertiary-container":"#e8d0ff"
+        },
+        borderRadius: { DEFAULT:"0.5rem", lg:"1rem", xl:"1.5rem", full:"9999px" },
+        fontFamily: { headline:["Inter"], body:["Inter"], label:["Inter"] }
+      }
+    }
+  }
+</script>
+</head>
+<body class="bg-background font-body text-on-surface min-h-screen flex flex-col">
+
+<!-- ── Navbar ── -->
+<nav class="fixed top-0 w-full z-50 bg-slate-950/60 backdrop-blur-xl border-b border-sky-400/10" style="position:relative">
+  <div class="max-w-7xl mx-auto px-6 py-4 flex justify-center items-center gap-8 relative">
+    <a href="index.html" class="text-2xl font-semibold tracking-tight text-sky-300">CalculatorHub</a>
+    <div class="hidden md:flex items-center space-x-5 text-sm">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="gst-calculator.html" class="nav-link">GST</a>
+      <a href="emi-calculator.html" class="nav-link">EMI</a>
+      <a href="loan-calculator.html" class="nav-link active">Loan</a>
+      <a href="salary-calculator.html" class="nav-link">Salary</a>
+      <a href="bmi-calculator.html" class="nav-link">BMI</a>
+      <a href="percentage-calculator.html" class="nav-link">Percentage</a>
+      <a href="age-calculator.html" class="nav-link">Age</a>
+    </div>
+    <button id="mobile_menu_btn" class="md:hidden text-sky-300 absolute right-6 top-1/2 -translate-y-1/2">
+      <span class="material-symbols-outlined">menu</span>
+    </button>
+  </div>
+  <div id="mobile_menu" class="mobile-menu md:hidden">
+    <a href="index.html" class="nav-link">Home</a>
+    <a href="gst-calculator.html" class="nav-link">GST</a>
+    <a href="emi-calculator.html" class="nav-link">EMI</a>
+    <a href="loan-calculator.html" class="nav-link active">Loan</a>
+    <a href="salary-calculator.html" class="nav-link">Salary</a>
+    <a href="bmi-calculator.html" class="nav-link">BMI</a>
+    <a href="percentage-calculator.html" class="nav-link">Percentage</a>
+    <a href="age-calculator.html" class="nav-link">Age</a>
+  </div>
+</nav>
+
+<main class="flex-grow pt-24 pb-12 px-6">
+  <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8">
+
+    <div class="lg:col-span-8 space-y-8">
+      <header class="fade-up">
+        <h1 class="text-4xl md:text-5xl font-extrabold text-on-surface tracking-tight mb-4">
+          Loan <span class="text-primary">Calculator</span>
+        </h1>
+        <p class="text-on-surface-variant text-lg max-w-2xl">
+          Calculate monthly payment, total interest, and total repayment for your loan in seconds.
+        </p>
+      </header>
+
+      <div class="ad-placeholder h-24 w-full fade-up fade-up-1" role="complementary" aria-label="Ad placeholder below loan hero">
+        <span class="ad-label">Advertisement</span>
+      </div>
+
+      <div class="glass-card-elevated rounded-xl p-8 fade-up fade-up-1">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div class="space-y-5">
+            <div class="space-y-2">
+              <label class="text-sm font-medium text-sky-300/80 ml-1">Loan Amount (₹)</label>
+              <div class="relative">
+                <input id="loan_amount" type="number" placeholder="1000000"
+                  class="calc-input w-full bg-surface-container border border-outline-variant focus:border-primary rounded-lg px-4 py-4 text-xl outline-none transition-all placeholder:text-on-surface-variant/30"/>
+                <span class="absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant/50">
+                  <span class="material-symbols-outlined">currency_rupee</span>
+                </span>
+              </div>
+            </div>
+
+            <div class="space-y-2">
+              <label class="text-sm font-medium text-sky-300/80 ml-1">Annual Interest Rate (%)</label>
+              <div class="relative">
+                <input id="loan_rate" type="number" placeholder="9.25" step="0.01"
+                  class="calc-input w-full bg-surface-container border border-outline-variant focus:border-primary rounded-lg px-4 py-4 text-xl outline-none transition-all placeholder:text-on-surface-variant/30"/>
+                <span class="absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant/50">
+                  <span class="material-symbols-outlined">percent</span>
+                </span>
+              </div>
+            </div>
+
+            <div class="space-y-2">
+              <label class="text-sm font-medium text-sky-300/80 ml-1">Tenure (years)</label>
+              <div class="relative">
+                <input id="loan_years" type="number" placeholder="15" step="0.5"
+                  class="calc-input w-full bg-surface-container border border-outline-variant focus:border-primary rounded-lg px-4 py-4 text-xl outline-none transition-all placeholder:text-on-surface-variant/30"/>
+                <span class="absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant/50">
+                  <span class="material-symbols-outlined">schedule</span>
+                </span>
+              </div>
+            </div>
+
+            <button id="loan_btn" class="btn-calc">
+              <span class="material-symbols-outlined">calculate</span>
+              Calculate Loan
+            </button>
+          </div>
+
+          <div class="flex flex-col justify-center md:border-l border-sky-400/10 md:pl-8 py-4 space-y-5">
+            <div class="text-center space-y-1">
+              <span class="text-xs text-on-surface-variant uppercase tracking-widest font-bold">Monthly Payment</span>
+              <div id="loan_monthly" class="result-number result-glow">0.00</div>
+              <span id="loan_badge" class="result-badge neutral">
+                <span class="material-symbols-outlined" style="font-size:14px">info</span>
+                <span>Enter loan details</span>
+              </span>
+            </div>
+
+            <div class="space-y-3">
+              <div class="glass-card p-3 rounded-lg flex justify-between items-center">
+                <span class="text-sm text-on-surface-variant">Total Interest</span>
+                <span id="loan_interest" class="font-bold text-tertiary">0.00</span>
+              </div>
+              <div class="glass-card p-3 rounded-lg flex justify-between items-center">
+                <span class="text-sm text-on-surface-variant">Total Repayment</span>
+                <span id="loan_total" class="font-bold text-primary">0.00</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ad-placeholder h-28 w-full fade-up fade-up-2" role="complementary" aria-label="Ad placeholder after loan results">
+        <span class="ad-label">Advertisement</span>
+      </div>
+
+      <div class="ad-placeholder h-24 w-full fade-up fade-up-3" role="complementary" aria-label="Ad placeholder between loan content sections">
+        <span class="ad-label">Advertisement</span>
+      </div>
+
+      <section class="glass-card rounded-xl p-6 fade-up fade-up-4">
+        <h2 class="text-xl font-bold mb-3 text-on-surface">Loan Calculator Guide</h2>
+        <div class="text-on-surface-variant text-sm space-y-3 leading-relaxed">
+          <h3 class="text-base font-semibold text-on-surface">What this calculator does</h3>
+          <p>This loan calculator estimates monthly installment, total interest payable, and complete repayment amount for a fixed-rate loan. It is suitable for home, education, vehicle, or personal borrowing scenarios where you want to check affordability before applying or compare different rate and tenure combinations quickly.</p>
+          <h3 class="text-base font-semibold text-on-surface">How to use it</h3>
+          <p>Enter principal amount, annual interest rate, and tenure in years. The calculator converts years to months and computes repayment details instantly. If interest rate is 0%, it switches to straight-line repayment automatically, so you still get valid monthly figures. Review total interest and total repayment together before finalizing any borrowing decision.</p>
+          <h3 class="text-base font-semibold text-on-surface">Example usage</h3>
+          <p>If you borrow ₹10,00,000 for 15 years at 9.25% annual interest, the tool displays estimated monthly payment and lifetime interest outgo. You can adjust rate to 8.5% or tenure to 20 years and compare impact immediately. This helps evaluate whether a lower EMI is worth paying more interest over time.</p>
+        </div>
+      </section>
+    </div>
+
+    <aside class="lg:col-span-4 space-y-6">
+      <div class="glass-card p-6 rounded-xl space-y-4">
+        <h2 class="text-lg font-bold flex items-center gap-2">
+          <span class="material-symbols-outlined text-tertiary">history</span>
+          Recent Activity
+        </h2>
+        <div id="history_list" class="space-y-3"></div>
+      </div>
+
+      <div class="ad-placeholder h-48 w-full rounded-xl">
+        <span class="ad-label">Advertisement</span>
+      </div>
+
+      <div class="glass-card p-5 rounded-xl space-y-3">
+        <h2 class="text-sm font-bold text-on-surface-variant uppercase tracking-widest">Other Calculators</h2>
+        <a href="emi-calculator.html" class="flex items-center gap-3 p-3 rounded-lg bg-surface-container-low border border-outline-variant/50 hover:border-primary/30 transition-colors">
+          <span class="material-symbols-outlined text-primary">account_balance</span>
+          <span class="text-sm font-medium">EMI Calculator</span>
+        </a>
+        <a href="salary-calculator.html" class="flex items-center gap-3 p-3 rounded-lg bg-surface-container-low border border-outline-variant/50 hover:border-primary/30 transition-colors">
+          <span class="material-symbols-outlined text-tertiary">payments</span>
+          <span class="text-sm font-medium">Salary Calculator</span>
+        </a>
+        <a href="bmi-calculator.html" class="flex items-center gap-3 p-3 rounded-lg bg-surface-container-low border border-outline-variant/50 hover:border-primary/30 transition-colors">
+          <span class="material-symbols-outlined text-primary">monitor_weight</span>
+          <span class="text-sm font-medium">BMI Calculator</span>
+        </a>
+      </div>
+    </aside>
+
+  </div>
+</main>
+
+<footer class="w-full py-12 mt-auto bg-slate-950 border-t border-sky-400/10">
+  <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4 text-sm">
+    <div class="text-lg font-bold text-sky-300">CalculatorHub</div>
+    <div class="flex gap-8 text-slate-500">
+      <a href="privacy-policy.html" class="hover:text-sky-300 transition-colors">Privacy Policy</a>
+      <a href="terms.html" class="hover:text-sky-300 transition-colors">Terms & Conditions</a>
+      <a href="contact.html" class="hover:text-sky-300 transition-colors">Contact</a>
+    </div>
+    <div class="text-slate-500 text-xs text-center md:text-right">
+      © 2026 CalculatorHub. All rights reserved.
+    </div>
+  </div>
+</footer>
+
+<script src="js/script.js"></script>
+</body>
+</html>

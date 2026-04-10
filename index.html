@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>CalculatorHub — Free Online Calculator Hub</title>
+<meta name="description" content="CalculatorHub is your free online calculator hub. Instantly calculate GST, EMI, Loan, Salary/In-hand, BMI, Percentage, and Age with a fast privacy-first tool."/>
+<meta name="keywords" content="online calculator, GST calculator, EMI calculator, loan calculator, salary calculator india, in hand calculator, BMI calculator, percentage calculator, age calculator"/>
+<link rel="canonical" href="index.html"/>
+<link rel="icon" type="image/svg+xml" href="favicon.svg"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="css/styles.css"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "tertiary":"#c8a0f0","surface-container":"#141c2e","surface-bright":"#1a2438",
+          "on-surface-variant":"#a0b4c4","inverse-surface":"#e0e8f0","surface-tint":"#7dd3fc",
+          "outline-variant":"#2a3a48","secondary-container":"#1a3a4e","on-primary":"#001f2e",
+          "on-surface":"#e0e8f0","surface":"#0f1524","primary":"#7dd3fc",
+          "surface-container-highest":"#202c42","surface-container-high":"#1a2438",
+          "error":"#ff6b6b","background":"#0a0e1a","outline":"#4a6070",
+          "on-background":"#e0e8f0","on-secondary-container":"#c0d8e8","surface-dim":"#0f1524",
+          "secondary":"#88b4cc","error-container":"#3d1414","on-primary-container":"#c8eaff",
+          "surface-container-lowest":"#0a0e1a","primary-container":"#0e4d6e",
+          "surface-container-low":"#111828","tertiary-container":"#3d2060",
+          "on-tertiary-container":"#e8d0ff"
+        },
+        borderRadius: { DEFAULT:"0.5rem", lg:"1rem", xl:"1.5rem", full:"9999px" },
+        fontFamily: { headline:["Inter"], body:["Inter"], label:["Inter"] }
+      }
+    }
+  }
+</script>
+</head>
+<body class="bg-background font-body text-on-surface min-h-screen flex flex-col">
+
+<!-- ── Navbar ── -->
+<nav class="fixed top-0 w-full z-50 bg-slate-950/60 backdrop-blur-xl border-b border-sky-400/10" style="position:relative">
+  <div class="max-w-7xl mx-auto px-6 py-4 flex justify-center items-center gap-8 relative">
+    <a href="index.html" class="text-2xl font-semibold tracking-tight text-sky-300">CalculatorHub</a>
+    <div class="hidden md:flex items-center space-x-5 text-sm">
+      <a href="index.html"               class="nav-link active">Home</a>
+      <a href="gst-calculator.html"      class="nav-link">GST</a>
+      <a href="emi-calculator.html"      class="nav-link">EMI</a>
+      <a href="loan-calculator.html" class="nav-link">Loan</a>
+      <a href="salary-calculator.html" class="nav-link">Salary</a>
+      <a href="bmi-calculator.html" class="nav-link">BMI</a>
+      <a href="percentage-calculator.html" class="nav-link">Percentage</a>
+      <a href="age-calculator.html"      class="nav-link">Age</a>
+    </div>
+    <button id="mobile_menu_btn" class="md:hidden text-sky-300 absolute right-6 top-1/2 -translate-y-1/2">
+      <span class="material-symbols-outlined">menu</span>
+    </button>
+  </div>
+  <div id="mobile_menu" class="mobile-menu md:hidden">
+    <a href="index.html"               class="nav-link active">Home</a>
+    <a href="gst-calculator.html"      class="nav-link">GST</a>
+    <a href="emi-calculator.html"      class="nav-link">EMI</a>
+      <a href="loan-calculator.html" class="nav-link">Loan</a>
+      <a href="salary-calculator.html" class="nav-link">Salary</a>
+      <a href="bmi-calculator.html" class="nav-link">BMI</a>
+    <a href="percentage-calculator.html" class="nav-link">Percentage</a>
+    <a href="age-calculator.html"      class="nav-link">Age</a>
+  </div>
+</nav>
+
+<!-- ── Main ── -->
+<main class="flex-grow pt-12 pb-12 px-6">
+  <div class="max-w-7xl mx-auto">
+
+    <!-- Hero -->
+    <header class="text-center py-16 fade-up">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-400/10 border border-sky-400/20 text-sky-300 text-xs font-semibold tracking-widest uppercase mb-6">
+        <span class="material-symbols-outlined" style="font-size:14px">ac_unit</span>
+        Free · Fast · Private
+      </div>
+      <h1 class="text-5xl md:text-6xl font-extrabold text-on-surface tracking-tight mb-4">
+        Your Complete <span class="text-primary">Calculator</span> Hub
+      </h1>
+      <p class="text-on-surface-variant text-xl max-w-2xl mx-auto">
+        GST, EMI, Loan, Salary/In-hand, BMI, Percentage, Age. No signups. No tracking. Just accurate results.
+      </p>
+    </header>
+
+    <div class="ad-placeholder h-24 w-full mb-12 fade-up fade-up-1" role="complementary" aria-label="Ad placeholder below homepage hero">
+      <span class="ad-label">Advertisement</span>
+    </div>
+
+    <!-- Calculator Grid -->
+    <section aria-label="Calculator tools" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16 fade-up fade-up-1">
+      <a href="gst-calculator.html" class="calc-hub-card group">
+        <div class="w-12 h-12 rounded-xl bg-sky-400/10 flex items-center justify-center mb-4 group-hover:bg-sky-400/20 transition-colors">
+          <span class="material-symbols-outlined text-primary text-2xl">receipt_long</span>
+        </div>
+        <h2 class="font-bold text-lg text-on-surface mb-1">GST Calculator</h2>
+        <p class="text-on-surface-variant text-sm mb-4">Calculate GST inclusive & exclusive amounts instantly.</p>
+        <div class="flex items-center gap-1 text-primary text-sm font-medium">
+          Open <span class="material-symbols-outlined" style="font-size:16px">arrow_forward</span>
+        </div>
+      </a>
+
+      <a href="emi-calculator.html" class="calc-hub-card group">
+        <div class="w-12 h-12 rounded-xl bg-tertiary/10 flex items-center justify-center mb-4 group-hover:bg-tertiary/20 transition-colors">
+          <span class="material-symbols-outlined text-tertiary text-2xl">account_balance</span>
+        </div>
+        <h2 class="font-bold text-lg text-on-surface mb-1">EMI Calculator</h2>
+        <p class="text-on-surface-variant text-sm mb-4">Plan your loan with precise monthly EMI breakdown.</p>
+        <div class="flex items-center gap-1 text-tertiary text-sm font-medium">
+          Open <span class="material-symbols-outlined" style="font-size:16px">arrow_forward</span>
+        </div>
+      </a>
+
+      <a href="loan-calculator.html" class="calc-hub-card group">
+        <div class="w-12 h-12 rounded-xl bg-sky-400/10 flex items-center justify-center mb-4 group-hover:bg-sky-400/20 transition-colors">
+          <span class="material-symbols-outlined text-primary text-2xl">payments</span>
+        </div>
+        <h2 class="font-bold text-lg text-on-surface mb-1">Loan Calculator</h2>
+        <p class="text-on-surface-variant text-sm mb-4">Monthly payment, total interest, and repayment summary.</p>
+        <div class="flex items-center gap-1 text-primary text-sm font-medium">
+          Open <span class="material-symbols-outlined" style="font-size:16px">arrow_forward</span>
+        </div>
+      </a>
+
+      <a href="salary-calculator.html" class="calc-hub-card group">
+        <div class="w-12 h-12 rounded-xl bg-tertiary/10 flex items-center justify-center mb-4 group-hover:bg-tertiary/20 transition-colors">
+          <span class="material-symbols-outlined text-tertiary text-2xl">wallet</span>
+        </div>
+        <h2 class="font-bold text-lg text-on-surface mb-1">Salary / In-hand</h2>
+        <p class="text-on-surface-variant text-sm mb-4">Estimate in-hand salary from annual CTC (India).</p>
+        <div class="flex items-center gap-1 text-tertiary text-sm font-medium">
+          Open <span class="material-symbols-outlined" style="font-size:16px">arrow_forward</span>
+        </div>
+      </a>
+
+      <a href="bmi-calculator.html" class="calc-hub-card group">
+        <div class="w-12 h-12 rounded-xl bg-sky-400/10 flex items-center justify-center mb-4 group-hover:bg-sky-400/20 transition-colors">
+          <span class="material-symbols-outlined text-primary text-2xl">monitor_weight</span>
+        </div>
+        <h2 class="font-bold text-lg text-on-surface mb-1">BMI Calculator</h2>
+        <p class="text-on-surface-variant text-sm mb-4">Check BMI, category, and healthy weight range.</p>
+        <div class="flex items-center gap-1 text-primary text-sm font-medium">
+          Open <span class="material-symbols-outlined" style="font-size:16px">arrow_forward</span>
+        </div>
+      </a>
+
+      <a href="percentage-calculator.html" class="calc-hub-card group">
+        <div class="w-12 h-12 rounded-xl bg-sky-400/10 flex items-center justify-center mb-4 group-hover:bg-sky-400/20 transition-colors">
+          <span class="material-symbols-outlined text-primary text-2xl">percent</span>
+        </div>
+        <h2 class="font-bold text-lg text-on-surface mb-1">Percentage Calculator</h2>
+        <p class="text-on-surface-variant text-sm mb-4">Discounts, markups, and percentage variations.</p>
+        <div class="flex items-center gap-1 text-primary text-sm font-medium">
+          Open <span class="material-symbols-outlined" style="font-size:16px">arrow_forward</span>
+        </div>
+      </a>
+
+      <a href="age-calculator.html" class="calc-hub-card group">
+        <div class="w-12 h-12 rounded-xl bg-tertiary/10 flex items-center justify-center mb-4 group-hover:bg-tertiary/20 transition-colors">
+          <span class="material-symbols-outlined text-tertiary text-2xl">cake</span>
+        </div>
+        <h2 class="font-bold text-lg text-on-surface mb-1">Age Calculator</h2>
+        <p class="text-on-surface-variant text-sm mb-4">Find exact age in years, months, and days.</p>
+        <div class="flex items-center gap-1 text-tertiary text-sm font-medium">
+          Open <span class="material-symbols-outlined" style="font-size:16px">arrow_forward</span>
+        </div>
+      </a>
+    </section>
+
+    <!-- Ad Placeholder -->
+    <div class="ad-placeholder h-28 w-full mb-16 fade-up fade-up-2">
+      <span class="ad-label">Advertisement</span>
+    </div>
+
+    <section class="glass-card rounded-xl p-6 mb-16 fade-up fade-up-3">
+      <h2 class="text-2xl font-bold text-on-surface mb-4">Why Use CalculatorHub?</h2>
+      <p class="text-on-surface-variant text-sm leading-relaxed mb-3">
+        CalculatorHub brings practical daily calculators into one fast, mobile-friendly website so users can solve real tasks without installing apps. Instead of switching across multiple tools, visitors can calculate taxes, loans, salary estimates, BMI, and percentage values in a single place. Every calculator is designed to be straightforward, responsive, and easy to read across desktop and mobile screens.
+      </p>
+      <h3 class="text-lg font-semibold text-on-surface mb-2">How To Navigate</h3>
+      <p class="text-on-surface-variant text-sm leading-relaxed mb-3">
+        Start by choosing the calculator tile that matches your need. Enter the required values, review instant results, and cross-check summary cards shown beside each result area. The navigation bar keeps all calculators one click away, while the footer provides direct access to policy and contact pages for transparency and trust.
+      </p>
+      <h3 class="text-lg font-semibold text-on-surface mb-2">Example Use Cases</h3>
+      <p class="text-on-surface-variant text-sm leading-relaxed">
+        A student can compute percentage growth, a shopper can estimate GST, a borrower can compare EMI and total loan cost, and an employee can review approximate monthly in-hand salary. This breadth of use cases helps the website satisfy both user intent and search-quality requirements through helpful, original, and actionable content.
+      </p>
+    </section>
+
+    <!-- Second Ad -->
+    <div class="ad-placeholder h-24 w-full fade-up fade-up-4" role="complementary" aria-label="Ad placeholder between homepage content sections">
+      <span class="ad-label">Advertisement</span>
+    </div>
+
+  </div>
+</main>
+
+<!-- ── Footer ── -->
+<footer class="w-full py-12 mt-auto bg-slate-950 border-t border-sky-400/10">
+  <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4 text-sm">
+    <div class="text-lg font-bold text-sky-300">CalculatorHub</div>
+    <div class="flex gap-8 text-slate-500">
+      <a href="privacy-policy.html" class="hover:text-sky-300 transition-colors">Privacy Policy</a>
+      <a href="terms.html" class="hover:text-sky-300 transition-colors">Terms & Conditions</a>
+      <a href="contact.html" class="hover:text-sky-300 transition-colors">Contact</a>
+    </div>
+    <div class="text-slate-500 text-xs text-center md:text-right">
+      © 2026 CalculatorHub. All rights reserved.
+    </div>
+  </div>
+</footer>
+
+<script src="js/script.js"></script>
+</body>
+</html>
