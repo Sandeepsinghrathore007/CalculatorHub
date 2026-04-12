@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Inflation Calculator | CalculatorHub</title>
+<meta name="description" content="Project future prices, cumulative inflation, and purchasing power with a simple inflation calculator."/>
+<meta name="keywords" content="inflation calculator, future value inflation, purchasing power calculator, price increase calculator"/>
+<link rel="canonical" href="inflation-calculator.html"/>
+<link rel="icon" type="image/svg+xml" href="favicon.svg"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="css/styles.css"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "tertiary":"#c8a0f0","surface-container":"#141c2e","surface-bright":"#1a2438",
+          "on-surface-variant":"#a0b4c4","inverse-surface":"#e0e8f0","surface-tint":"#7dd3fc",
+          "outline-variant":"#2a3a48","secondary-container":"#1a3a4e","on-primary":"#001f2e",
+          "on-surface":"#e0e8f0","surface":"#0f1524","primary":"#7dd3fc",
+          "surface-container-highest":"#202c42","surface-container-high":"#1a2438",
+          "error":"#ff6b6b","background":"#0a0e1a","outline":"#4a6070",
+          "on-background":"#e0e8f0","on-secondary-container":"#c0d8e8","surface-dim":"#0f1524",
+          "secondary":"#88b4cc","error-container":"#3d1414","on-primary-container":"#c8eaff",
+          "surface-container-lowest":"#0a0e1a","primary-container":"#0e4d6e",
+          "surface-container-low":"#111828","tertiary-container":"#3d2060",
+          "on-tertiary-container":"#e8d0ff"
+        },
+        borderRadius: { DEFAULT:"0.5rem", lg:"1rem", xl:"1.5rem", full:"9999px" },
+        fontFamily: { headline:["Inter"], body:["Inter"], label:["Inter"] }
+      }
+    }
+  }
+</script>
+</head>
+<body class="bg-background font-body text-on-surface min-h-screen flex flex-col">
+<nav class="fixed top-0 w-full z-50 bg-slate-950/60 backdrop-blur-xl border-b border-sky-400/10" style="position:relative">
+  <div class="max-w-7xl mx-auto px-6 py-4 flex justify-center items-center gap-8 relative">
+    <a href="index.html" class="text-2xl font-semibold tracking-tight text-sky-300">CalculatorHub</a>
+    <div class="hidden md:flex items-center space-x-5 text-sm">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="gst-calculator.html" class="nav-link">GST</a>
+      <a href="emi-calculator.html" class="nav-link">EMI</a>
+      <a href="loan-calculator.html" class="nav-link">Loan</a>
+      <a href="salary-calculator.html" class="nav-link">Salary</a>
+      <a href="bmi-calculator.html" class="nav-link">BMI</a>
+      <a href="percentage-calculator.html" class="nav-link">Percentage</a>
+      <a href="age-calculator.html" class="nav-link">Age</a>
+    </div>
+    <button id="mobile_menu_btn" class="md:hidden text-sky-300 absolute right-6 top-1/2 -translate-y-1/2" aria-label="Open navigation menu">
+      <span class="material-symbols-outlined" aria-hidden="true">menu</span>
+    </button>
+  </div>
+  <div id="mobile_menu" class="mobile-menu md:hidden">
+    <a href="index.html" class="nav-link">Home</a>
+    <a href="gst-calculator.html" class="nav-link">GST</a>
+    <a href="emi-calculator.html" class="nav-link">EMI</a>
+    <a href="loan-calculator.html" class="nav-link">Loan</a>
+    <a href="salary-calculator.html" class="nav-link">Salary</a>
+    <a href="bmi-calculator.html" class="nav-link">BMI</a>
+    <a href="percentage-calculator.html" class="nav-link">Percentage</a>
+    <a href="age-calculator.html" class="nav-link">Age</a>
+  </div>
+</nav>
+
+<main id="inflation_page" class="flex-grow pt-24 pb-12 px-6">
+  <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8">
+    <div class="lg:col-span-8 space-y-8">
+      <header class="fade-up">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-tertiary/10 border border-tertiary/20 text-tertiary text-xs font-semibold tracking-widest uppercase mb-6">
+          <span class="material-symbols-outlined" style="font-size:14px">waterfall_chart</span>
+          Price projection
+        </div>
+        <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4">
+          Inflation <span class="text-primary">Calculator</span>
+        </h1>
+        <p class="text-on-surface-variant text-lg max-w-3xl">
+          Estimate how much a price could rise over time, how much budget you may need later, and how inflation erodes the buying power of the same nominal amount.
+        </p>
+      </header>
+
+      <div class="ad-placeholder h-24 w-full fade-up fade-up-1" role="complementary" aria-label="Ad placeholder below inflation hero">
+        <span class="ad-label">Advertisement</span>
+      </div>
+
+      <section class="glass-card-elevated rounded-xl p-8 fade-up fade-up-1">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div class="space-y-5">
+            <div class="space-y-2">
+              <label class="text-sm font-medium text-sky-300/80 ml-1">Current Amount / Price</label>
+              <input id="inflation_amount" type="number" placeholder="1000" class="calc-input w-full bg-surface-container border border-outline-variant rounded-lg px-4 py-4 text-xl outline-none"/>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div class="space-y-2">
+                <label class="text-sm font-medium text-sky-300/80 ml-1">Annual Inflation Rate (%)</label>
+                <input id="inflation_rate" type="number" step="0.1" placeholder="5" class="calc-input w-full bg-surface-container border border-outline-variant rounded-lg px-4 py-4 text-lg outline-none"/>
+              </div>
+              <div class="space-y-2">
+                <label class="text-sm font-medium text-sky-300/80 ml-1">Years</label>
+                <input id="inflation_years" type="number" step="0.1" placeholder="10" class="calc-input w-full bg-surface-container border border-outline-variant rounded-lg px-4 py-4 text-lg outline-none"/>
+              </div>
+            </div>
+            <div class="space-y-2">
+              <label class="text-sm font-medium text-sky-300/80 ml-1">Currency</label>
+              <select id="inflation_currency" class="calc-input w-full bg-surface-container border border-outline-variant rounded-lg px-4 py-4 text-base outline-none text-on-surface">
+                <option value="USD">USD</option>
+                <option value="INR">INR</option>
+                <option value="GBP">GBP</option>
+              </select>
+            </div>
+            <button id="inflation_btn" class="btn-calc">
+              <span class="material-symbols-outlined">calculate</span>
+              Calculate Inflation Impact
+            </button>
+          </div>
+
+          <div class="flex flex-col justify-center md:border-l border-sky-400/10 md:pl-8 py-4 space-y-5">
+            <div class="text-center space-y-1">
+              <span class="text-xs text-on-surface-variant uppercase tracking-widest font-bold">Projected Future Price</span>
+              <div id="inflation_future" class="result-number result-glow">$0.00</div>
+              <span id="inflation_badge" class="result-badge neutral">
+                <span class="material-symbols-outlined" style="font-size:14px">info</span>
+                <span>Enter an amount to project forward</span>
+              </span>
+            </div>
+            <div class="space-y-3">
+              <div class="glass-card p-3 rounded-lg flex justify-between items-center">
+                <span class="text-sm text-on-surface-variant">Total Price Change</span>
+                <span id="inflation_change" class="font-bold text-tertiary">$0.00</span>
+              </div>
+              <div class="glass-card p-3 rounded-lg flex justify-between items-center">
+                <span class="text-sm text-on-surface-variant">Cumulative Inflation</span>
+                <span id="inflation_cumulative" class="font-bold text-primary">0.00%</span>
+              </div>
+              <div class="glass-card p-3 rounded-lg flex justify-between items-center">
+                <span class="text-sm text-on-surface-variant">Buying Power of Same Amount</span>
+                <span id="inflation_buying_power" class="font-bold text-on-surface">$0.00</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="ad-placeholder h-24 w-full fade-up fade-up-2" role="complementary" aria-label="Ad placeholder after inflation results">
+        <span class="ad-label">Advertisement</span>
+      </div>
+
+      <section class="glass-card rounded-xl p-6 fade-up fade-up-3">
+        <h2 class="text-xl font-bold mb-3 text-on-surface">How to Read the Result</h2>
+        <div class="text-on-surface-variant text-sm space-y-3 leading-relaxed">
+          <p>The projected future price shows what the same item or expense may cost after compounding the chosen inflation rate over the selected number of years.</p>
+          <p>The buying-power figure shows what the same nominal amount may effectively feel like in future real terms. If inflation is positive, that number is lower than today’s starting amount.</p>
+        </div>
+      </section>
+    </div>
+
+    <aside class="lg:col-span-4 space-y-6">
+      <div class="glass-card p-6 rounded-xl space-y-4">
+        <h2 class="text-lg font-bold flex items-center gap-2">
+          <span class="material-symbols-outlined text-tertiary">history</span>
+          Recent Activity
+        </h2>
+        <div id="history_list" class="space-y-3"></div>
+      </div>
+
+      <div class="ad-placeholder h-48 w-full rounded-xl">
+        <span class="ad-label">Advertisement</span>
+      </div>
+
+      <div class="glass-card p-5 rounded-xl space-y-3">
+        <h2 class="text-sm font-bold text-on-surface-variant uppercase tracking-widest">Related Calculators</h2>
+        <a href="roi-calculator.html" class="flex items-center gap-3 p-3 rounded-lg bg-surface-container-low border border-outline-variant/50 hover:border-primary/30 transition-colors">
+          <span class="material-symbols-outlined text-primary">trending_up</span>
+          <span class="text-sm font-medium">ROI Calculator</span>
+        </a>
+        <a href="retirement-corpus-calculator.html" class="flex items-center gap-3 p-3 rounded-lg bg-surface-container-low border border-outline-variant/50 hover:border-primary/30 transition-colors">
+          <span class="material-symbols-outlined text-tertiary">nest_eco_leaf</span>
+          <span class="text-sm font-medium">Retirement Corpus</span>
+        </a>
+        <a href="net-worth-calculator.html" class="flex items-center gap-3 p-3 rounded-lg bg-surface-container-low border border-outline-variant/50 hover:border-primary/30 transition-colors">
+          <span class="material-symbols-outlined text-primary">account_balance_wallet</span>
+          <span class="text-sm font-medium">Net Worth</span>
+        </a>
+      </div>
+    </aside>
+  </div>
+</main>
+
+<footer class="w-full py-12 mt-auto bg-slate-950 border-t border-sky-400/10">
+  <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4 text-sm">
+    <div class="text-lg font-bold text-sky-300">CalculatorHub</div>
+    <div class="flex gap-8 text-slate-500">
+      <a href="privacy-policy.html" class="hover:text-sky-300 transition-colors">Privacy Policy</a>
+      <a href="terms.html" class="hover:text-sky-300 transition-colors">Terms &amp; Conditions</a>
+      <a href="contact.html" class="hover:text-sky-300 transition-colors">Contact</a>
+    </div>
+    <div class="text-slate-500 text-xs text-center md:text-right">© 2026 CalculatorHub. All rights reserved.</div>
+  </div>
+</footer>
+<script src="js/script.js"></script>
+</body>
+</html>

@@ -101,7 +101,7 @@ input[type="number"] { -moz-appearance: textfield; }
   backdrop-filter: blur(16px);
   border: 1px dashed rgba(125, 211, 252, 0.2);
   border-radius: 0.75rem;
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: center;
   position: relative;
@@ -167,6 +167,38 @@ input[type="number"] { -moz-appearance: textfield; }
 }
 .btn-calc:hover { background: rgba(125,211,252,0.2); }
 .btn-calc:active { transform: scale(0.98); }
+
+/* ── Segmented tabs ── */
+.segment-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.segment-tab {
+  padding: 0.75rem 1rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(74, 96, 112, 0.7);
+  background: rgba(17, 24, 40, 0.7);
+  color: #a0b4c4;
+  font-size: 0.875rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+}
+
+.segment-tab:hover {
+  color: #e0e8f0;
+  border-color: rgba(125, 211, 252, 0.35);
+  transform: translateY(-1px);
+}
+
+.segment-tab.is-active {
+  color: #d7f3ff;
+  border-color: rgba(125, 211, 252, 0.55);
+  background: rgba(125, 211, 252, 0.14);
+  box-shadow: 0 0 24px rgba(125, 211, 252, 0.08);
+}
 
 /* ── Badge ── */
 .result-badge {
