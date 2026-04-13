@@ -43,25 +43,17 @@
 <!-- ── Navbar ── -->
 <nav aria-label="Primary navigation"></nav>
 <!-- ── Main ── -->
-<main class="flex-grow pt-12 pb-12 px-6">
+<main class="home-main flex-grow pb-12">
   <section
-        class="relative w-full h-[716px] flex items-center justify-center overflow-hidden"
+        class="home-hero"
+        style="--hero-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuAZeWlzWKT8R_HXsgK8Q2Mtz-jhOKxTE8O5q9MXyEKqcSDHRdGrRxLTFYzMBXy9QhOZOdRhujAelj_aGBzJza7uCTBqPufB4SUxjWNTKGdtNanaCEeeVoiqd68gC7zw1Q5vo1tkX3duVS7xZf7aN6TddQgquQ4HSe-iuVTpAOCVWsM1OntVVsxaxSqM30sN7JxJm7rhYbFJlQ98kMpWL9gG8ByJIPNq7rJz09mNWyhytsEcav3fLl1s0PU07hUA3Xb_h7lAHOu8Q-0')"
       >
-        <!-- Background Image with Overlay -->
-        <div class="absolute inset-0 z-0">
-          <img
-            class="w-full h-full object-cover opacity-30 grayscale brightness-50"
-            data-alt="Abstract geometric visualization of complex mathematics and data flow with neon cyan accents on a dark deep space background"
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZeWlzWKT8R_HXsgK8Q2Mtz-jhOKxTE8O5q9MXyEKqcSDHRdGrRxLTFYzMBXy9QhOZOdRhujAelj_aGBzJza7uCTBqPufB4SUxjWNTKGdtNanaCEeeVoiqd68gC7zw1Q5vo1tkX3duVS7xZf7aN6TddQgquQ4HSe-iuVTpAOCVWsM1OntVVsxaxSqM30sN7JxJm7rhYbFJlQ98kMpWL9gG8ByJIPNq7rJz09mNWyhytsEcav3fLl1s0PU07hUA3Xb_h7lAHOu8Q-0"
-          />
-          <div
-            class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-surface-container-lowest/40"
-          ></div>
-        </div>
+        <div class="home-hero__bg" aria-hidden="true"></div>
+        <div class="home-hero__overlay" aria-hidden="true"></div>
         <!-- Editorial Content Canvas -->
-        <div class="relative z-10 max-w-7xl mx-auto px-8 w-full text-center">
+        <div class="home-hero__content text-center">
           <div
-            class="inline-flex items-center space-x-2 bg-primary-container/10 border border-primary-container/20 rounded-full px-4 py-1.5 mb-8"
+            class="inline-flex max-w-full flex-wrap items-center justify-center gap-2 bg-primary-container/10 border border-primary-container/20 rounded-full px-3 py-1.5 mb-6 sm:px-4 sm:mb-8"
           >
             <span class="w-2 h-2 rounded-full bg-primary-container"></span>
             <span
@@ -70,36 +62,36 @@
             >
           </div>
           <h1
-            class="text-6xl md:text-8xl font-black tracking-tighter text-on-surface mb-6 leading-[0.9]"
+            class="text-4xl sm:text-6xl md:text-8xl font-black tracking-tighter text-on-surface mb-4 sm:mb-6 leading-[0.92] sm:leading-[0.9]"
           >
             PRECISION<br />
             <span class="text-primary-container">ENGINEERED.</span>
           </h1>
           <p
-            class="max-w-2xl mx-auto text-xl text-on-surface-variant font-light leading-relaxed mb-12"
+            class="max-w-2xl mx-auto text-base sm:text-lg xl:text-xl text-on-surface-variant font-light leading-relaxed mb-8 sm:mb-12"
           >
             Access over 25+ premium calculation modules designed with
             mathematical rigor and aesthetic clarity. From fiscal analysis to
             scientific constants.
           </p>
-          <div class="flex flex-wrap justify-center gap-4">
+          <div class="mx-auto flex w-full max-w-md flex-nowrap justify-center gap-3 sm:max-w-none sm:gap-4">
             <a
               href="#home-calculator-directory"
-              class="px-8 py-4 bg-primary-container text-on-primary-container font-bold rounded-xl flex items-center gap-2 hover:brightness-110 transition-all shadow-xl shadow-primary-container/10"
+              class="flex min-w-0 flex-1 items-center justify-center gap-2 whitespace-nowrap rounded-xl bg-primary-container px-4 py-3.5 text-sm font-bold text-on-primary-container transition-all hover:brightness-110 shadow-xl shadow-primary-container/10 sm:flex-none sm:px-8 sm:py-4 sm:text-base"
             >
               Explore More
               <span class="material-symbols-outlined">arrow_forward</span>
             </a>
             <a
               href="#home-recent-activity"
-              class="px-8 py-4 bg-surface-container-high text-on-surface font-bold rounded-xl border border-outline-variant/15 hover:bg-surface-container transition-all"
+              class="flex min-w-0 flex-1 items-center justify-center whitespace-nowrap rounded-xl border border-outline-variant/15 bg-surface-container-high px-4 py-3.5 text-sm font-bold text-on-surface transition-all hover:bg-surface-container sm:flex-none sm:px-8 sm:py-4 sm:text-base"
             >
               Recent Activity
             </a>
           </div>
         </div>
       </section>
-  <div class="max-w-7xl mx-auto w-full">
+  <div class="max-w-7xl mx-auto w-full px-6">
     <div class="ad-placeholder h-24 w-full mb-12 fade-up fade-up-1" role="complementary" aria-label="Ad placeholder below homepage hero">
       <span class="ad-label">Advertisement</span>
     </div>

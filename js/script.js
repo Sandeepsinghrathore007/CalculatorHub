@@ -478,10 +478,6 @@ const topNavDropdowns = [
   }
 ];
 
-function getCalculatorByHref(href) {
-  return siteNavCalculators.find(calculator => calculator.href === href) || null;
-}
-
 function renderTopNavDropdown(dropdown, currentPage) {
   const isCurrentGroup = dropdown.items.some(item => item.href === currentPage);
 
@@ -517,47 +513,12 @@ function renderTopNavDropdown(dropdown, currentPage) {
   `;
 }
 
-function renderTopNavMobileGroup(dropdown, currentPage) {
-  return `
-    <section class="top-nav-mobile-group" data-mobile-group>
-      <h2 class="top-nav-mobile-group__title">${dropdown.label}</h2>
-      <div class="space-y-2">
-        ${dropdown.items.map(item => {
-          const calculator = getCalculatorByHref(item.href);
-          const isCurrent = item.href === currentPage;
-          const searchText = calculator
-            ? calculator.searchText
-            : `${item.label} ${dropdown.label}`.toLowerCase();
-
-          return `
-            <a
-              href="${item.href}"
-              class="top-nav-mobile-link${isCurrent ? ' is-current' : ''}"
-              data-mobile-calculator-link
-              data-search="${escapeHtml(searchText)}"
-              ${isCurrent ? 'aria-current="page"' : ''}
-            >
-              <span>${item.label}</span>
-              <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span>
-            </a>
-          `;
-        }).join('')}
-      </div>
-    </section>
-  `;
-}
-
 function buildSiteNavMarkup(currentPage) {
-  const isHome = currentPage === 'index.html';
-  const isContact = currentPage === 'contact.html';
-  const isPrivacy = currentPage === 'privacy-policy.html';
-  const isTerms = currentPage === 'terms.html';
-
   return `
-    <div class="mx-auto w-full max-w-7xl h-full" data-nav-shell>
-      <nav class="flex justify-between items-center px-4 md:px-8 h-full w-full max-w-none gap-4" aria-label="Primary navigation">
-        <a href="index.html" class="flex items-center space-x-2 shrink-0" aria-label="CalculatorHub home">
-          <span class="text-xl font-black tracking-tighter text-[#dfe2f3]">CalculatorHub</span>
+    <div class="mx-auto w-full max-w-7xl" data-nav-shell>
+      <nav class="flex min-h-16 w-full max-w-none items-center justify-between gap-3 px-4 py-3 md:gap-4 md:px-8 md:py-0" aria-label="Primary navigation">
+        <a href="index.html" class="top-nav-brand flex shrink-0 items-center space-x-2" aria-label="CalculatorHub home">
+          <span class="text-lg font-black tracking-tighter text-[#dfe2f3] md:text-xl">CalculatorHub</span>
         </a>
 
         <div
@@ -566,8 +527,8 @@ function buildSiteNavMarkup(currentPage) {
           ${topNavDropdowns.map(dropdown => renderTopNavDropdown(dropdown, currentPage)).join('')}
         </div>
 
-        <div class="flex items-center space-x-3 md:space-x-6">
-          <form class="relative group hidden md:block" role="search" aria-label="Quick calculator search" data-quick-search-form>
+        <div class="flex min-w-0 flex-1 items-center justify-end md:w-auto md:flex-none">
+          <form class="top-nav-search-form relative group" role="search" aria-label="Quick calculator search" data-quick-search-form>
             <div
               class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
             >
@@ -577,7 +538,7 @@ function buildSiteNavMarkup(currentPage) {
               >search</span>
             </div>
             <input
-              class="bg-surface-container-lowest border-0 ring-1 ring-outline-variant/15 focus:ring-2 focus:ring-primary-container/50 text-on-surface text-sm rounded-lg block w-64 pl-10 p-2 transition-all duration-300 placeholder:text-on-surface-variant/50"
+              class="top-nav-search-input bg-surface-container-lowest border-0 ring-1 ring-outline-variant/15 focus:ring-2 focus:ring-primary-container/50 text-on-surface rounded-lg block pl-10 pr-4 py-3 text-base transition-all duration-300 placeholder:text-on-surface-variant/50 md:w-64 md:py-2 md:text-sm"
               placeholder="Search calculators..."
               type="search"
               data-quick-search-input
@@ -588,58 +549,8 @@ function buildSiteNavMarkup(currentPage) {
               ${renderQuickSearchResults('', currentPage)}
             </div>
           </form>
-
-          <button
-            type="button"
-            class="top-nav-mobile-toggle md:hidden"
-            data-mobile-toggle
-            aria-controls="site-mobile-menu"
-            aria-expanded="false"
-            aria-label="Open navigation menu"
-          >
-            <span class="material-symbols-outlined" aria-hidden="true">menu</span>
-          </button>
         </div>
       </nav>
-    </div>
-
-    <div id="site-mobile-menu" class="mobile-menu md:hidden" data-mobile-menu>
-      <div class="flex items-center justify-between gap-4">
-        <p class="text-sm font-semibold tracking-wide text-[#dfe2f3]">Browse Calculators</p>
-        <button type="button" class="top-nav-mobile-toggle" data-mobile-close aria-label="Close navigation menu">
-          <span class="material-symbols-outlined" aria-hidden="true">close</span>
-        </button>
-      </div>
-
-      <div class="flex flex-wrap gap-2">
-        <a href="index.html" class="top-nav-mobile-chip${isHome ? ' is-current' : ''}" ${isHome ? 'aria-current="page"' : ''}>Home</a>
-        <a href="contact.html" class="top-nav-mobile-chip${isContact ? ' is-current' : ''}" ${isContact ? 'aria-current="page"' : ''}>Contact</a>
-        <a href="privacy-policy.html" class="top-nav-mobile-chip${isPrivacy ? ' is-current' : ''}" ${isPrivacy ? 'aria-current="page"' : ''}>Privacy</a>
-        <a href="terms.html" class="top-nav-mobile-chip${isTerms ? ' is-current' : ''}" ${isTerms ? 'aria-current="page"' : ''}>Terms</a>
-      </div>
-
-      <form class="relative group" role="search" aria-label="Search calculators on mobile" data-mobile-search-form>
-        <div
-          class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
-        >
-          <span
-            class="material-symbols-outlined text-[#bec8cd] group-focus-within:text-[#7ddbfc] transition-colors"
-            aria-hidden="true"
-          >search</span>
-        </div>
-        <input
-          class="bg-surface-container-lowest border-0 ring-1 ring-outline-variant/15 focus:ring-2 focus:ring-primary-container/50 text-on-surface text-sm rounded-lg block w-full pl-10 p-2 transition-all duration-300 placeholder:text-on-surface-variant/50"
-          placeholder="Search calculators..."
-          type="search"
-          data-mobile-search-input
-          autocomplete="off"
-          aria-label="Search calculators on mobile"
-        />
-      </form>
-
-      <p class="top-nav-mobile-empty" data-mobile-empty hidden>No calculators matched your search.</p>
-
-      ${topNavDropdowns.map(dropdown => renderTopNavMobileGroup(dropdown, currentPage)).join('')}
     </div>
   `;
 }
@@ -650,10 +561,9 @@ function initSiteNav() {
 
   const currentPage = getCurrentPagePath();
   const nav = document.createElement('header');
-  nav.className = 'top-site-navbar fixed top-0 w-full z-50 transition-all duration-200 ease-in-out glass-nav shadow-2xl shadow-black/20 h-16';
+  nav.className = 'top-site-navbar fixed top-0 w-full z-50 transition-all duration-200 ease-in-out glass-nav shadow-2xl shadow-black/20';
   nav.dataset.panel = '';
   nav.dataset.quickSearchOpen = 'false';
-  nav.dataset.mobileOpen = 'false';
   nav.innerHTML = buildSiteNavMarkup(currentPage);
   existingNav.replaceWith(nav);
 
@@ -664,17 +574,9 @@ function initSiteNav() {
   const quickSearchInput = nav.querySelector('[data-quick-search-input]');
   const quickResults = nav.querySelector('[data-quick-results]');
   const dropdowns = nav.querySelectorAll('[data-dropdown]');
-  const mobileToggle = nav.querySelector('[data-mobile-toggle]');
-  const mobileClose = nav.querySelector('[data-mobile-close]');
-  const mobileMenu = nav.querySelector('[data-mobile-menu]');
-  const mobileSearchForm = nav.querySelector('[data-mobile-search-form]');
-  const mobileSearchInput = nav.querySelector('[data-mobile-search-input]');
-  const mobileEmpty = nav.querySelector('[data-mobile-empty]');
-  const mobileGroups = nav.querySelectorAll('[data-mobile-group]');
 
   const state = {
-    quickSearchOpen: false,
-    mobileOpen: false
+    quickSearchOpen: false
   };
 
   let navResizeObserver = null;
@@ -693,44 +595,9 @@ function initSiteNav() {
 
   const closeQuickSearch = () => setQuickSearchOpen(false);
 
-  const setMobileOpen = isOpen => {
-    state.mobileOpen = isOpen;
-    nav.dataset.mobileOpen = isOpen ? 'true' : 'false';
-    mobileToggle?.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-    mobileMenu?.classList.toggle('open', isOpen);
-    document.body.classList.toggle('nav-locked', isOpen);
-
-    if (isOpen) {
-      closeQuickSearch();
-      window.setTimeout(() => mobileSearchInput?.focus(), 120);
-    }
-  };
-
   const renderQuickSearch = query => {
     if (!quickResults) return;
     quickResults.innerHTML = renderQuickSearchResults(query, currentPage);
-  };
-
-  const applyMobileSearch = () => {
-    const query = normalizeSearchValue(mobileSearchInput?.value || '');
-    let totalVisible = 0;
-
-    mobileGroups.forEach(group => {
-      let groupVisible = 0;
-
-      group.querySelectorAll('[data-mobile-calculator-link]').forEach(link => {
-        const isVisible = !query || link.dataset.search.includes(query);
-        link.hidden = !isVisible;
-        if (isVisible) groupVisible++;
-      });
-
-      group.hidden = groupVisible === 0;
-      totalVisible += groupVisible;
-    });
-
-    if (mobileEmpty) {
-      mobileEmpty.hidden = totalVisible !== 0;
-    }
   };
 
   dropdowns.forEach(dropdown => {
@@ -782,52 +649,23 @@ function initSiteNav() {
     setQuickSearchOpen(true);
   });
 
-  mobileToggle?.addEventListener('click', () => setMobileOpen(!state.mobileOpen));
-  mobileClose?.addEventListener('click', () => setMobileOpen(false));
-
-  mobileSearchInput?.addEventListener('input', applyMobileSearch);
-  mobileSearchForm?.addEventListener('submit', event => {
-    event.preventDefault();
-    if (!normalizeSearchValue(mobileSearchInput?.value || '')) {
-      applyMobileSearch();
-      return;
-    }
-
-    const [match] = getCalculatorMatches(mobileSearchInput?.value || '', 1);
-    if (match) {
-      window.location.href = match.href;
-    }
-  });
-
-  nav.querySelectorAll('[data-mobile-menu] a').forEach(link => {
-    link.addEventListener('click', () => setMobileOpen(false));
-  });
-
   document.addEventListener('click', event => {
     if (!nav.contains(event.target)) {
       closeQuickSearch();
-      setMobileOpen(false);
     }
   });
 
   document.addEventListener('keydown', event => {
     if (event.key === 'Escape') {
       closeQuickSearch();
-      setMobileOpen(false);
       quickSearchInput?.blur();
-      mobileSearchInput?.blur();
     }
   });
 
   window.addEventListener('resize', () => {
     syncNavHeight();
-
-    if (window.innerWidth >= 768) {
-      setMobileOpen(false);
-    }
   });
 
-  applyMobileSearch();
   syncNavHeight();
   window.requestAnimationFrame(syncNavHeight);
   window.addEventListener('load', syncNavHeight, { once: true });
