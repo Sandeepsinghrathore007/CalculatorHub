@@ -4,6 +4,844 @@
 
 'use strict';
 
+// ── Site Navigation ──────────────────────────
+const siteNavCategories = [
+  {
+    id: 'finance',
+    label: 'Finance',
+    description: 'Loans, investing, and long-term money planning.',
+    icon: 'account_balance_wallet'
+  },
+  {
+    id: 'tax',
+    label: 'Tax & Salary',
+    description: 'Income, payroll, and tax-planning calculators.',
+    icon: 'receipt_long'
+  },
+  {
+    id: 'health',
+    label: 'Health',
+    description: 'Health and body metrics at a glance.',
+    icon: 'favorite'
+  },
+  {
+    id: 'math',
+    label: 'Math',
+    description: 'Quick percentage and number helpers.',
+    icon: 'calculate'
+  },
+  {
+    id: 'utilities',
+    label: 'Utilities',
+    description: 'Everyday conversion and planning tools.',
+    icon: 'conversion_path'
+  }
+];
+
+const siteNavCategoryMap = new Map(siteNavCategories.map(category => [category.id, category]));
+
+const siteNavCalculators = [
+  {
+    title: 'EMI Calculator',
+    href: 'emi-calculator.html',
+    category: 'finance',
+    description: 'Estimate monthly loan payments with a clear repayment snapshot.',
+    keywords: ['emi', 'loan emi', 'monthly payment', 'home loan', 'car loan'],
+    featured: true
+  },
+  {
+    title: 'Loan Calculator',
+    href: 'loan-calculator.html',
+    category: 'finance',
+    description: 'Review monthly payments, total interest, and repayment totals.',
+    keywords: ['loan', 'repayment', 'borrow', 'interest'],
+    featured: true
+  },
+  {
+    title: 'Loan Prepayment Calculator',
+    href: 'loan-prepayment-calculator.html',
+    category: 'finance',
+    description: 'See how extra payments reduce interest and shorten your loan term.',
+    keywords: ['prepayment', 'loan closure', 'extra payment', 'principal reduction']
+  },
+  {
+    title: 'Mortgage Calculator',
+    href: 'mortgage-calculator.html',
+    category: 'finance',
+    description: 'Model monthly mortgage costs for home-buying decisions.',
+    keywords: ['mortgage', 'home loan', 'house payment']
+  },
+  {
+    title: 'Compound Interest Calculator',
+    href: 'compound-interest-calculator.html',
+    category: 'finance',
+    description: 'Project future value with lump sums and recurring contributions.',
+    keywords: ['compound interest', 'investment growth', 'future value'],
+    featured: true
+  },
+  {
+    title: 'SIP Calculator',
+    href: 'sip-calculator.html',
+    category: 'finance',
+    description: 'Estimate SIP maturity, invested capital, and growth over time.',
+    keywords: ['sip', 'mutual fund', 'systematic investment plan', 'wealth'],
+    featured: true
+  },
+  {
+    title: 'Retirement Corpus Calculator',
+    href: 'retirement-corpus-calculator.html',
+    category: 'finance',
+    description: 'Plan the corpus you need for long-term retirement goals.',
+    keywords: ['retirement', 'corpus', 'retire early', 'future planning']
+  },
+  {
+    title: 'ROI Calculator',
+    href: 'roi-calculator.html',
+    category: 'finance',
+    description: 'Measure return on investment, profit, and annualized performance.',
+    keywords: ['roi', 'return on investment', 'profit', 'investment return']
+  },
+  {
+    title: 'Inflation Calculator',
+    href: 'inflation-calculator.html',
+    category: 'finance',
+    description: 'Understand future prices and changes in purchasing power.',
+    keywords: ['inflation', 'future cost', 'purchasing power']
+  },
+  {
+    title: 'Net Worth Calculator',
+    href: 'net-worth-calculator.html',
+    category: 'finance',
+    description: 'Add assets and liabilities to get a fast net-worth snapshot.',
+    keywords: ['net worth', 'assets', 'liabilities', 'balance sheet']
+  },
+  {
+    title: 'GST Calculator',
+    href: 'gst-calculator.html',
+    category: 'tax',
+    description: 'Calculate GST-inclusive and GST-exclusive prices instantly.',
+    keywords: ['gst', 'goods and services tax', 'tax amount'],
+    featured: true
+  },
+  {
+    title: 'Income Tax Calculator',
+    href: 'income-tax-calculator.html',
+    category: 'tax',
+    description: 'Estimate income tax for supported regions in one flow.',
+    keywords: ['income tax', 'tax slab', 'federal tax', 'tax estimate'],
+    featured: true
+  },
+  {
+    title: 'Old vs New Tax Regime Calculator',
+    href: 'old-new-tax-regime-calculator.html',
+    category: 'tax',
+    description: 'Compare India old and new tax regimes side by side.',
+    keywords: ['old tax regime', 'new tax regime', 'tax comparison']
+  },
+  {
+    title: 'HRA Exemption Calculator',
+    href: 'hra-exemption-calculator.html',
+    category: 'tax',
+    description: 'Estimate HRA exemption with salary, rent, and city inputs.',
+    keywords: ['hra', 'house rent allowance', 'salary tax']
+  },
+  {
+    title: 'Salary Calculator',
+    href: 'salary-calculator.html',
+    category: 'tax',
+    description: 'Estimate in-hand salary from annual CTC and deductions.',
+    keywords: ['salary', 'ctc', 'in hand', 'pay'],
+    featured: true
+  },
+  {
+    title: 'Take-Home Pay Calculator',
+    href: 'take-home-pay-calculator.html',
+    category: 'tax',
+    description: 'Preview paycheck totals after deductions and taxes.',
+    keywords: ['take home pay', 'paycheck', 'net salary', 'payroll']
+  },
+  {
+    title: 'BMI Calculator',
+    href: 'bmi-calculator.html',
+    category: 'health',
+    description: 'Check body mass index and weight status in seconds.',
+    keywords: ['bmi', 'body mass index', 'healthy weight'],
+    featured: true
+  },
+  {
+    title: 'Percentage Calculator',
+    href: 'percentage-calculator.html',
+    category: 'math',
+    description: 'Handle percentages, increases, decreases, and ratios quickly.',
+    keywords: ['percentage', 'percent', 'ratio', 'increase', 'decrease']
+  },
+  {
+    title: 'Age Calculator',
+    href: 'age-calculator.html',
+    category: 'utilities',
+    description: 'Find exact age in years, months, and days.',
+    keywords: ['age', 'date difference', 'birthday', 'years months days'],
+    featured: true
+  },
+  {
+    title: 'Currency Converter',
+    href: 'currency-converter.html',
+    category: 'utilities',
+    description: 'Convert currencies with fresh rates and easy comparisons.',
+    keywords: ['currency', 'exchange rate', 'forex', 'conversion'],
+    featured: true
+  },
+  {
+    title: 'Time Zone Converter',
+    href: 'time-zone-converter.html',
+    category: 'utilities',
+    description: 'Translate times across global cities with DST-aware output.',
+    keywords: ['time zone', 'timezone', 'meeting planner', 'utc']
+  },
+  {
+    title: 'Fuel Cost Calculator',
+    href: 'fuel-cost-calculator.html',
+    category: 'utilities',
+    description: 'Estimate trip fuel costs based on distance and mileage.',
+    keywords: ['fuel', 'trip cost', 'mileage', 'petrol', 'diesel']
+  }
+].map(calculator => {
+  const category = siteNavCategoryMap.get(calculator.category);
+  return {
+    ...calculator,
+    categoryLabel: category ? category.label : 'Calculator',
+    searchText: [
+      calculator.title,
+      calculator.description,
+      category ? category.label : '',
+      ...(calculator.keywords || [])
+    ].join(' ').toLowerCase()
+  };
+});
+
+function getCurrentPagePath() {
+  const current = window.location.pathname.split('/').pop();
+  return current || 'index.html';
+}
+
+function escapeHtml(value) {
+  return String(value)
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;');
+}
+
+function normalizeSearchValue(value) {
+  return String(value || '').trim().toLowerCase();
+}
+
+function getCategoryCalculators(categoryId) {
+  return siteNavCalculators.filter(calculator => calculator.category === categoryId);
+}
+
+function scoreCalculatorMatch(calculator, query) {
+  if (!query) return calculator.featured ? 10 : 1;
+
+  let score = 0;
+  const title = calculator.title.toLowerCase();
+  const description = calculator.description.toLowerCase();
+  const category = calculator.categoryLabel.toLowerCase();
+
+  if (title === query) score += 350;
+  if (title.startsWith(query)) score += 220;
+  if (title.includes(query)) score += 120;
+  if (description.includes(query)) score += 40;
+  if (category.includes(query)) score += 24;
+
+  calculator.keywords.forEach(keyword => {
+    const normalizedKeyword = keyword.toLowerCase();
+    if (normalizedKeyword === query) score += 160;
+    else if (normalizedKeyword.startsWith(query)) score += 80;
+    else if (normalizedKeyword.includes(query)) score += 36;
+  });
+
+  return score;
+}
+
+function getCalculatorMatches(query, limit = siteNavCalculators.length) {
+  const normalizedQuery = normalizeSearchValue(query);
+
+  if (!normalizedQuery) {
+    const ordered = [
+      ...siteNavCalculators.filter(calculator => calculator.featured),
+      ...siteNavCalculators.filter(calculator => !calculator.featured)
+    ];
+    return ordered.slice(0, limit);
+  }
+
+  return siteNavCalculators
+    .map(calculator => ({ calculator, score: scoreCalculatorMatch(calculator, normalizedQuery) }))
+    .filter(item => item.score > 0)
+    .sort((left, right) => {
+      if (right.score !== left.score) return right.score - left.score;
+      return left.calculator.title.localeCompare(right.calculator.title);
+    })
+    .slice(0, limit)
+    .map(item => item.calculator);
+}
+
+function renderDirectoryLink(calculator, currentPage, variant = 'desktop') {
+  const isCurrent = calculator.href === currentPage;
+  const currentAttr = isCurrent ? ' aria-current="page"' : '';
+  const currentBadge = isCurrent ? '<span class="site-directory-link__badge">Current</span>' : '';
+
+  return `
+    <a
+      class="site-directory-link site-directory-link--${variant}${isCurrent ? ' is-current' : ''}"
+      href="${calculator.href}"
+      data-calculator-link
+      data-category="${calculator.category}"
+      data-search="${escapeHtml(calculator.searchText)}"
+      ${currentAttr}
+    >
+      <span class="site-directory-link__copy">
+        <span class="site-directory-link__title">${calculator.title}</span>
+        <span class="site-directory-link__desc">${calculator.description}</span>
+      </span>
+      <span class="site-directory-link__meta">
+        ${currentBadge}
+        <span class="material-symbols-outlined" aria-hidden="true">arrow_outward</span>
+      </span>
+    </a>
+  `;
+}
+
+function renderDirectoryGroup(category, currentPage, variant = 'desktop') {
+  const calculators = getCategoryCalculators(category.id);
+
+  return `
+    <section
+      class="site-directory-group site-directory-group--${variant}"
+      data-directory-group
+      data-category="${category.id}"
+    >
+      <div class="site-directory-group__header">
+        <div class="site-directory-group__icon">
+          <span class="material-symbols-outlined" aria-hidden="true">${category.icon}</span>
+        </div>
+        <div class="site-directory-group__copy">
+          <h3>${category.label}</h3>
+          <p>${category.description}</p>
+        </div>
+        <span class="site-directory-group__count">${calculators.length}</span>
+      </div>
+      <div class="site-directory-group__links">
+        ${calculators.map(calculator => renderDirectoryLink(calculator, currentPage, variant)).join('')}
+      </div>
+    </section>
+  `;
+}
+
+function renderCategoryFilters(scope, activeCategory) {
+  const allButton = `
+    <button
+      type="button"
+      class="site-nav-filter${activeCategory === 'all' ? ' is-active' : ''}"
+      data-directory-filter="all"
+      data-filter-scope="${scope}"
+      aria-pressed="${activeCategory === 'all' ? 'true' : 'false'}"
+    >
+      <span>All</span>
+      <span class="site-nav-filter__count">${siteNavCalculators.length}</span>
+    </button>
+  `;
+
+  return allButton + siteNavCategories.map(category => `
+    <button
+      type="button"
+      class="site-nav-filter${activeCategory === category.id ? ' is-active' : ''}"
+      data-directory-filter="${category.id}"
+      data-filter-scope="${scope}"
+      aria-pressed="${activeCategory === category.id ? 'true' : 'false'}"
+    >
+      <span>${category.label}</span>
+      <span class="site-nav-filter__count">${getCategoryCalculators(category.id).length}</span>
+    </button>
+  `).join('');
+}
+
+function renderCategoryShortcut(category) {
+  const calculators = getCategoryCalculators(category.id);
+  const preview = calculators
+    .slice(0, 2)
+    .map(calculator => calculator.title.replace(' Calculator', ''))
+    .join(' / ');
+
+  return `
+    <button
+      type="button"
+      class="site-nav-category-shortcut"
+      data-category-shortcut="${category.id}"
+    >
+      <span class="site-nav-category-shortcut__icon">
+        <span class="material-symbols-outlined" aria-hidden="true">${category.icon}</span>
+      </span>
+      <span class="site-nav-category-shortcut__copy">
+        <span class="site-nav-category-shortcut__title">${category.label}</span>
+        <span class="site-nav-category-shortcut__desc">${category.description}</span>
+        <span class="site-nav-category-shortcut__meta">${calculators.length} tools / ${preview}</span>
+      </span>
+      <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span>
+    </button>
+  `;
+}
+
+function renderQuickSearchResults(query, currentPage) {
+  const results = getCalculatorMatches(query, 6);
+  const normalizedQuery = normalizeSearchValue(query);
+  const title = normalizedQuery ? 'Matching calculators' : 'Popular calculators';
+
+  if (!results.length) {
+    return `
+      <div class="site-nav-search-results__header">
+        <span>${title}</span>
+      </div>
+      <p class="site-nav-search-results__empty">No calculators matched "${escapeHtml(query)}".</p>
+    `;
+  }
+
+  return `
+    <div class="site-nav-search-results__header">
+      <span>${title}</span>
+      <span>${results.length}</span>
+    </div>
+    <div class="site-nav-search-results__list">
+      ${results.map(calculator => `
+        <a
+          class="site-nav-search-result${calculator.href === currentPage ? ' is-current' : ''}"
+          href="${calculator.href}"
+          ${calculator.href === currentPage ? 'aria-current="page"' : ''}
+        >
+          <span class="site-nav-search-result__copy">
+            <span class="site-nav-search-result__title">${calculator.title}</span>
+            <span class="site-nav-search-result__meta">${calculator.categoryLabel}</span>
+          </span>
+          <span class="material-symbols-outlined" aria-hidden="true">north_east</span>
+        </a>
+      `).join('')}
+    </div>
+  `;
+}
+
+const topNavDropdowns = [
+  {
+    id: 'finance',
+    label: 'Finance',
+    items: [
+      { href: 'emi-calculator.html', label: 'EMI' },
+      { href: 'sip-calculator.html', label: 'SIP' },
+      { href: 'compound-interest-calculator.html', label: 'Compound Interest' },
+      { href: 'loan-calculator.html', label: 'Loan' },
+      { href: 'roi-calculator.html', label: 'ROI' },
+      { href: 'mortgage-calculator.html', label: 'Mortgage' },
+      { href: 'loan-prepayment-calculator.html', label: 'Loan Prepayment' },
+      { href: 'retirement-corpus-calculator.html', label: 'Retirement Corpus' },
+      { href: 'inflation-calculator.html', label: 'Inflation' },
+      { href: 'net-worth-calculator.html', label: 'Net Worth' }
+    ]
+  },
+  {
+    id: 'tax',
+    label: 'Tax & Salary',
+    items: [
+      { href: 'gst-calculator.html', label: 'GST' },
+      { href: 'income-tax-calculator.html', label: 'Income Tax' },
+      { href: 'salary-calculator.html', label: 'Salary' },
+      { href: 'take-home-pay-calculator.html', label: 'Take-Home Pay' },
+      { href: 'hra-exemption-calculator.html', label: 'HRA' },
+      { href: 'old-new-tax-regime-calculator.html', label: 'Old vs New Regime' }
+    ]
+  },
+  {
+    id: 'health',
+    label: 'Health',
+    items: [
+      { href: 'bmi-calculator.html', label: 'BMI' },
+      { href: 'age-calculator.html', label: 'Age' }
+    ]
+  },
+  {
+    id: 'utilities',
+    label: 'Math & Utility',
+    items: [
+      { href: 'percentage-calculator.html', label: 'Percentage' },
+      { href: 'time-zone-converter.html', label: 'Time Zone' },
+      { href: 'currency-converter.html', label: 'Currency' },
+      { href: 'fuel-cost-calculator.html', label: 'Fuel Cost' }
+    ]
+  }
+];
+
+function getCalculatorByHref(href) {
+  return siteNavCalculators.find(calculator => calculator.href === href) || null;
+}
+
+function renderTopNavDropdown(dropdown, currentPage) {
+  const isCurrentGroup = dropdown.items.some(item => item.href === currentPage);
+
+  return `
+    <div
+      class="relative h-full flex items-center group nav-item-dropdown cursor-pointer"
+      data-dropdown
+    >
+      <button
+        type="button"
+        class="top-nav-dropdown-trigger text-[#bec8cd] pb-1 hover:text-[#7ddbfc] transition-colors duration-300 flex items-center gap-1${isCurrentGroup ? ' is-current' : ''}"
+        data-dropdown-trigger
+        aria-expanded="false"
+      >
+        <span>${dropdown.label}</span>
+        <span class="material-symbols-outlined text-[16px]" aria-hidden="true">expand_more</span>
+      </button>
+      <div
+        class="dropdown-menu hidden absolute top-full left-0 w-64 bg-surface-container shadow-2xl rounded-b-xl overflow-hidden py-4 border-t-2 border-primary-container"
+      >
+        ${dropdown.items.map(item => {
+          const isCurrent = item.href === currentPage;
+          return `
+            <a
+              class="block px-6 py-3 text-on-surface-variant hover:bg-surface-container-high hover:text-primary-container transition-all${isCurrent ? ' bg-surface-container-high text-primary-container' : ''}"
+              href="${item.href}"
+              ${isCurrent ? 'aria-current="page"' : ''}
+            >${item.label}</a>
+          `;
+        }).join('')}
+      </div>
+    </div>
+  `;
+}
+
+function renderTopNavMobileGroup(dropdown, currentPage) {
+  return `
+    <section class="top-nav-mobile-group" data-mobile-group>
+      <h2 class="top-nav-mobile-group__title">${dropdown.label}</h2>
+      <div class="space-y-2">
+        ${dropdown.items.map(item => {
+          const calculator = getCalculatorByHref(item.href);
+          const isCurrent = item.href === currentPage;
+          const searchText = calculator
+            ? calculator.searchText
+            : `${item.label} ${dropdown.label}`.toLowerCase();
+
+          return `
+            <a
+              href="${item.href}"
+              class="top-nav-mobile-link${isCurrent ? ' is-current' : ''}"
+              data-mobile-calculator-link
+              data-search="${escapeHtml(searchText)}"
+              ${isCurrent ? 'aria-current="page"' : ''}
+            >
+              <span>${item.label}</span>
+              <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span>
+            </a>
+          `;
+        }).join('')}
+      </div>
+    </section>
+  `;
+}
+
+function buildSiteNavMarkup(currentPage) {
+  const isHome = currentPage === 'index.html';
+  const isContact = currentPage === 'contact.html';
+  const isPrivacy = currentPage === 'privacy-policy.html';
+  const isTerms = currentPage === 'terms.html';
+
+  return `
+    <div class="mx-auto w-full max-w-7xl h-full" data-nav-shell>
+      <nav class="flex justify-between items-center px-4 md:px-8 h-full w-full max-w-none gap-4" aria-label="Primary navigation">
+        <a href="index.html" class="flex items-center space-x-2 shrink-0" aria-label="CalculatorHub home">
+          <span class="text-xl font-black tracking-tighter text-[#dfe2f3]">CalculatorHub</span>
+        </a>
+
+        <div
+          class="hidden md:flex items-center space-x-8 h-full font-['Inter'] font-medium text-sm tracking-wide"
+        >
+          ${topNavDropdowns.map(dropdown => renderTopNavDropdown(dropdown, currentPage)).join('')}
+        </div>
+
+        <div class="flex items-center space-x-3 md:space-x-6">
+          <form class="relative group hidden md:block" role="search" aria-label="Quick calculator search" data-quick-search-form>
+            <div
+              class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
+            >
+              <span
+                class="material-symbols-outlined text-[#bec8cd] group-focus-within:text-[#7ddbfc] transition-colors"
+                aria-hidden="true"
+              >search</span>
+            </div>
+            <input
+              class="bg-surface-container-lowest border-0 ring-1 ring-outline-variant/15 focus:ring-2 focus:ring-primary-container/50 text-on-surface text-sm rounded-lg block w-64 pl-10 p-2 transition-all duration-300 placeholder:text-on-surface-variant/50"
+              placeholder="Search calculators..."
+              type="search"
+              data-quick-search-input
+              autocomplete="off"
+              aria-label="Search calculators from the navigation bar"
+            />
+            <div class="site-nav-search-results" data-quick-results role="list">
+              ${renderQuickSearchResults('', currentPage)}
+            </div>
+          </form>
+
+          <button
+            type="button"
+            class="top-nav-mobile-toggle md:hidden"
+            data-mobile-toggle
+            aria-controls="site-mobile-menu"
+            aria-expanded="false"
+            aria-label="Open navigation menu"
+          >
+            <span class="material-symbols-outlined" aria-hidden="true">menu</span>
+          </button>
+        </div>
+      </nav>
+    </div>
+
+    <div id="site-mobile-menu" class="mobile-menu md:hidden" data-mobile-menu>
+      <div class="flex items-center justify-between gap-4">
+        <p class="text-sm font-semibold tracking-wide text-[#dfe2f3]">Browse Calculators</p>
+        <button type="button" class="top-nav-mobile-toggle" data-mobile-close aria-label="Close navigation menu">
+          <span class="material-symbols-outlined" aria-hidden="true">close</span>
+        </button>
+      </div>
+
+      <div class="flex flex-wrap gap-2">
+        <a href="index.html" class="top-nav-mobile-chip${isHome ? ' is-current' : ''}" ${isHome ? 'aria-current="page"' : ''}>Home</a>
+        <a href="contact.html" class="top-nav-mobile-chip${isContact ? ' is-current' : ''}" ${isContact ? 'aria-current="page"' : ''}>Contact</a>
+        <a href="privacy-policy.html" class="top-nav-mobile-chip${isPrivacy ? ' is-current' : ''}" ${isPrivacy ? 'aria-current="page"' : ''}>Privacy</a>
+        <a href="terms.html" class="top-nav-mobile-chip${isTerms ? ' is-current' : ''}" ${isTerms ? 'aria-current="page"' : ''}>Terms</a>
+      </div>
+
+      <form class="relative group" role="search" aria-label="Search calculators on mobile" data-mobile-search-form>
+        <div
+          class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
+        >
+          <span
+            class="material-symbols-outlined text-[#bec8cd] group-focus-within:text-[#7ddbfc] transition-colors"
+            aria-hidden="true"
+          >search</span>
+        </div>
+        <input
+          class="bg-surface-container-lowest border-0 ring-1 ring-outline-variant/15 focus:ring-2 focus:ring-primary-container/50 text-on-surface text-sm rounded-lg block w-full pl-10 p-2 transition-all duration-300 placeholder:text-on-surface-variant/50"
+          placeholder="Search calculators..."
+          type="search"
+          data-mobile-search-input
+          autocomplete="off"
+          aria-label="Search calculators on mobile"
+        />
+      </form>
+
+      <p class="top-nav-mobile-empty" data-mobile-empty hidden>No calculators matched your search.</p>
+
+      ${topNavDropdowns.map(dropdown => renderTopNavMobileGroup(dropdown, currentPage)).join('')}
+    </div>
+  `;
+}
+
+function initSiteNav() {
+  const existingNav = document.querySelector('body > nav, body > header');
+  if (!existingNav) return;
+
+  const currentPage = getCurrentPagePath();
+  const nav = document.createElement('header');
+  nav.className = 'top-site-navbar fixed top-0 w-full z-50 transition-all duration-200 ease-in-out glass-nav shadow-2xl shadow-black/20 h-16';
+  nav.dataset.panel = '';
+  nav.dataset.quickSearchOpen = 'false';
+  nav.dataset.mobileOpen = 'false';
+  nav.innerHTML = buildSiteNavMarkup(currentPage);
+  existingNav.replaceWith(nav);
+
+  document.body.classList.add('has-enhanced-nav');
+
+  const shell = nav.querySelector('[data-nav-shell]');
+  const quickSearchForm = nav.querySelector('[data-quick-search-form]');
+  const quickSearchInput = nav.querySelector('[data-quick-search-input]');
+  const quickResults = nav.querySelector('[data-quick-results]');
+  const dropdowns = nav.querySelectorAll('[data-dropdown]');
+  const mobileToggle = nav.querySelector('[data-mobile-toggle]');
+  const mobileClose = nav.querySelector('[data-mobile-close]');
+  const mobileMenu = nav.querySelector('[data-mobile-menu]');
+  const mobileSearchForm = nav.querySelector('[data-mobile-search-form]');
+  const mobileSearchInput = nav.querySelector('[data-mobile-search-input]');
+  const mobileEmpty = nav.querySelector('[data-mobile-empty]');
+  const mobileGroups = nav.querySelectorAll('[data-mobile-group]');
+
+  const state = {
+    quickSearchOpen: false,
+    mobileOpen: false
+  };
+
+  let navResizeObserver = null;
+
+  const syncNavHeight = () => {
+    const target = shell || nav;
+    const nextHeight = Math.ceil(target.getBoundingClientRect().height || 64);
+    document.documentElement.style.setProperty('--site-nav-height', `${nextHeight}px`);
+    document.body.style.setProperty('--site-nav-height', `${nextHeight}px`);
+  };
+
+  const setQuickSearchOpen = isOpen => {
+    state.quickSearchOpen = isOpen;
+    nav.dataset.quickSearchOpen = isOpen ? 'true' : 'false';
+  };
+
+  const closeQuickSearch = () => setQuickSearchOpen(false);
+
+  const setMobileOpen = isOpen => {
+    state.mobileOpen = isOpen;
+    nav.dataset.mobileOpen = isOpen ? 'true' : 'false';
+    mobileToggle?.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    mobileMenu?.classList.toggle('open', isOpen);
+    document.body.classList.toggle('nav-locked', isOpen);
+
+    if (isOpen) {
+      closeQuickSearch();
+      window.setTimeout(() => mobileSearchInput?.focus(), 120);
+    }
+  };
+
+  const renderQuickSearch = query => {
+    if (!quickResults) return;
+    quickResults.innerHTML = renderQuickSearchResults(query, currentPage);
+  };
+
+  const applyMobileSearch = () => {
+    const query = normalizeSearchValue(mobileSearchInput?.value || '');
+    let totalVisible = 0;
+
+    mobileGroups.forEach(group => {
+      let groupVisible = 0;
+
+      group.querySelectorAll('[data-mobile-calculator-link]').forEach(link => {
+        const isVisible = !query || link.dataset.search.includes(query);
+        link.hidden = !isVisible;
+        if (isVisible) groupVisible++;
+      });
+
+      group.hidden = groupVisible === 0;
+      totalVisible += groupVisible;
+    });
+
+    if (mobileEmpty) {
+      mobileEmpty.hidden = totalVisible !== 0;
+    }
+  };
+
+  dropdowns.forEach(dropdown => {
+    const trigger = dropdown.querySelector('[data-dropdown-trigger]');
+    const setExpanded = isOpen => {
+      trigger?.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      dropdown.classList.toggle('is-open', isOpen);
+    };
+
+    dropdown.addEventListener('mouseenter', () => setExpanded(true));
+    dropdown.addEventListener('mouseleave', () => setExpanded(false));
+    dropdown.addEventListener('focusin', () => setExpanded(true));
+    dropdown.addEventListener('focusout', event => {
+      if (!dropdown.contains(event.relatedTarget)) {
+        setExpanded(false);
+      }
+    });
+  });
+
+  quickSearchInput?.addEventListener('focus', () => {
+    renderQuickSearch(quickSearchInput.value);
+    setQuickSearchOpen(true);
+  });
+
+  quickSearchInput?.addEventListener('input', () => {
+    renderQuickSearch(quickSearchInput.value);
+    setQuickSearchOpen(true);
+  });
+
+  quickSearchForm?.addEventListener('submit', event => {
+    event.preventDefault();
+    const query = quickSearchInput?.value || '';
+    const normalizedQuery = normalizeSearchValue(query);
+
+    if (!normalizedQuery) {
+      renderQuickSearch('');
+      setQuickSearchOpen(true);
+      return;
+    }
+
+    const [match] = getCalculatorMatches(query, 1);
+
+    if (match) {
+      window.location.href = match.href;
+      return;
+    }
+
+    renderQuickSearch(query);
+    setQuickSearchOpen(true);
+  });
+
+  mobileToggle?.addEventListener('click', () => setMobileOpen(!state.mobileOpen));
+  mobileClose?.addEventListener('click', () => setMobileOpen(false));
+
+  mobileSearchInput?.addEventListener('input', applyMobileSearch);
+  mobileSearchForm?.addEventListener('submit', event => {
+    event.preventDefault();
+    if (!normalizeSearchValue(mobileSearchInput?.value || '')) {
+      applyMobileSearch();
+      return;
+    }
+
+    const [match] = getCalculatorMatches(mobileSearchInput?.value || '', 1);
+    if (match) {
+      window.location.href = match.href;
+    }
+  });
+
+  nav.querySelectorAll('[data-mobile-menu] a').forEach(link => {
+    link.addEventListener('click', () => setMobileOpen(false));
+  });
+
+  document.addEventListener('click', event => {
+    if (!nav.contains(event.target)) {
+      closeQuickSearch();
+      setMobileOpen(false);
+    }
+  });
+
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape') {
+      closeQuickSearch();
+      setMobileOpen(false);
+      quickSearchInput?.blur();
+      mobileSearchInput?.blur();
+    }
+  });
+
+  window.addEventListener('resize', () => {
+    syncNavHeight();
+
+    if (window.innerWidth >= 768) {
+      setMobileOpen(false);
+    }
+  });
+
+  applyMobileSearch();
+  syncNavHeight();
+  window.requestAnimationFrame(syncNavHeight);
+  window.addEventListener('load', syncNavHeight, { once: true });
+
+  if ('ResizeObserver' in window) {
+    navResizeObserver = new ResizeObserver(() => {
+      syncNavHeight();
+    });
+    navResizeObserver.observe(shell || nav);
+  }
+
+  renderQuickSearch('');
+}
+
 // ── History Manager ──────────────────────────
 const History = {
   KEY: 'calculatorhub_history',
@@ -2341,23 +3179,6 @@ if (typeof window !== 'undefined') {
   });
 }
 
-// ── Mobile Nav ───────────────────────────────
-function initMobileNav() {
-  const btn  = document.getElementById('mobile_menu_btn');
-  const menu = document.getElementById('mobile_menu');
-  if (!btn || !menu) return;
-  if (!btn.getAttribute('aria-label')) {
-    btn.setAttribute('aria-label', 'Toggle navigation menu');
-  }
-  btn.setAttribute('aria-expanded', 'false');
-  btn.setAttribute('aria-controls', 'mobile_menu');
-
-  btn.addEventListener('click', () => {
-    const isOpen = menu.classList.toggle('open');
-    btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-  });
-}
-
 function initIconAccessibility() {
   document.querySelectorAll('.material-symbols-outlined').forEach(icon => {
     if (!icon.hasAttribute('aria-label') && !icon.hasAttribute('role')) {
@@ -2368,8 +3189,8 @@ function initIconAccessibility() {
 
 // ── Bootstrap on DOMContentLoaded ────────────
 document.addEventListener('DOMContentLoaded', async () => {
+  initSiteNav();
   initIconAccessibility();
-  initMobileNav();
   History.render('history_list');
   PercentageCalc.init();
   GSTCalc.init();

@@ -1,0 +1,21 @@
+# Applies to Googlebot, Bingbot, and other major crawlers
+User-agent: *
+
+# Allow public pages and essential assets
+Allow: /
+Allow: /css/
+Allow: /js/
+Allow: /favicon.ico
+Allow: /favicon.png
+Allow: /favicon.svg
+
+# Block non-public or irrelevant paths
+
+Disallow: /admin/
+Disallow: /private/
+Disallow: /login/
+Disallow: /dashboard/
+Disallow: /.git/
+Disallow: /node_modules/
+
+Sitemap: https://calculatehub.xyz/sitemap.xml
